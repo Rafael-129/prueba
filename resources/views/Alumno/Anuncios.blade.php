@@ -3,5 +3,7 @@
 @section('title', 'Contactos')
 
 @section('content')
-
+<div class="mb-3">
+    <p>Anuncios</p>
+</div>
 @endsection
