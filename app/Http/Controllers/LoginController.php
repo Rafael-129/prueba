@@ -43,7 +43,7 @@ class LoginController extends Controller
         }
 
         // Intentar autenticación
-        if (Auth::attempt($creadenciales)) {
+        if (Auth::guard('web')->attempt(['DNI' => $request->DNI, 'password' => $request->password])) {
             return redirect()->route('Alumno.anuncios');
         } else {
             // Mensaje si la contraseña es incorrecta
