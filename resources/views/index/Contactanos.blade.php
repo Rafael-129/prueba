@@ -3,5 +3,6 @@
 @section('title', 'Contactos')
 
 @section('content')
-
+<!-- Aqui editas -->
+ 
 @endsection

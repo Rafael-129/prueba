@@ -3,5 +3,6 @@
 @section('title', 'Anuncios')
 
 @section('content')
-
+<!-- Aqui editas -->
+ 
 @endsection

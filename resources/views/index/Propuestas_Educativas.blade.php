@@ -3,5 +3,6 @@
 @section('title', 'Propuesta Educativa')
 
 @section('content')
+<!-- Aqui editas -->
 
 @endsection

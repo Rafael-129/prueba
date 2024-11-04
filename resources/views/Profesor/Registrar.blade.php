@@ -76,7 +76,6 @@
 </style>
 
 <br>
-<br>
 <!-- Registro de Usuario -->
 <div class="contenedor-login">
     <div class="caja-login">
@@ -87,9 +86,29 @@
         <form action="{{ route('registrar')}}" method="post" >
             @csrf
             @method('POST')
+
+            <div>
+            <label for="nombre" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+
+            <div>
+            <label for="apellido" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" required>
+            </div>
+
             <div class="mb-3">
                 <label for="DNI" class="form-label">DNI</label>
                 <input type="text" class="form-control" id="DNI" name="DNI" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <select name="rol" id="rol" class="form-select" required>
+                    <option selected>Seleccione</option>
+                    <option value="profesor">Profesor</option>
+                    <option value="alumno">Alumno</option>
+                </select>
             </div>
 
             <div class="mb-3">

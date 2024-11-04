@@ -21,12 +21,12 @@ class Usuario extends Authenticatable
 
     protected $fillable = [
         'DNI',
-        'password', // Asegúrate de incluir el campo password
+        'password', 
     ];
 
     protected $hidden = [
-        'password', // Este campo debería estar aquí
-        'remember_token', // Opcional, si usas remember token
+        'password',
+        'remember_token', 
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
