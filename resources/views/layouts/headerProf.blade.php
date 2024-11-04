@@ -75,13 +75,13 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Anuncios</a>
+                        <a class="nav-link" href="{{ route('Profesor.Anuncios') }}">Anuncios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Docentes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quejas</a>
+                        <a class="nav-link" href="{{ route('Profesor.quejas') }}">Quejas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Notas</a>

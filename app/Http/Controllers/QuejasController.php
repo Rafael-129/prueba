@@ -12,4 +12,11 @@ class QuejasController extends Controller
         return view('Alumno.quejas');
 
     }
+
+    public function pquejas()
+    {
+
+        return view('Profesor.Profesorquejas');
+
+    }
 }

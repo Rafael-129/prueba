@@ -7,63 +7,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-
+        /* CSS de Encabezado */
         .encabezado {
             background-color: #1F308A;
-            padding: 10px 20px;
             color: white;
-        }
-
-        .contenedor-logo {
-            display: flex; 
-            align-items: center; 
-        }
-
-        .logo {
-            width: 60px; 
-            height: auto;
-            margin-right: 10px;
         }
 
         .titulo {
             font-size: 24px;
+            color: white;
+            font-weight: bold;
             margin: 0;
-            color: white;
+            padding-left: 5px;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
             font-weight: bold;
+            margin-right: 15px; /* Espacio entre los elementos del menú */
         }
 
-        .navegacion {
-            display: flex;
-            gap: 20px;
-            align-items: center; 
+        .navbar-nav .nav-link:hover {
+            text-decoration: underline;
         }
 
-        .navegacion a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 0 15px;
-        }
-
-        .navegacion .intranet {
+        .intranet {
             background-color: #C00;
             padding: 5px 10px;
             border-radius: 5px;
-            color: white;
+            color: white !important;
         }
 
-        .navegacion .intranet:hover {
+        .intranet:hover {
             background-color: #900;
-        }
-
-        .navegacion a:hover {
-            text-decoration: underline;
         }
 
         /* Pie de Página */
@@ -90,34 +66,44 @@
     <nav class="navbar navbar-expand-lg encabezado">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{{ asset('images/logo.png') }}" alt="Emilio del Solar Logo" class="logo">
+                <img src="{{ asset('images/logo.png') }}" alt="Emilio del Solar Logo" class="logo" width="60" height="auto">
                 <span class="titulo ms-2">EduPlus</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <div class="navegacion">
-                    <a href="{{ route('index.propuestas_educativas') }}">Propuesta Educativa</a>
-                    <a href="{{ route('index.nosotros') }}">Nosotros</a>
-                    <a href="{{ route('index.anuncios') }}">Anuncios</a>
-                    <a href="{{ route('index.contactanos') }}">Contáctenos</a>
-                    <a href="{{ route('Login') }}" class="intranet">INTRANET</a>
-                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('index.propuestas_educativas') }}">Propuesta Educativa</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('index.nosotros') }}">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('index.anuncios') }}">Anuncios</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('index.contactanos') }}">Contáctenos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link intranet" href="{{ route('Login') }}">Intranet</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <!-- Contenido Principal -->
     <div class="contenido flex-grow-1">
-        @yield('content') <!-- Aquí se incluirá el contenido específico de cada página -->
+        @yield('content') 
     </div>
     
     <!-- Pie de Página -->
     <div class="pie-pagina">
         <img src="{{ asset('images/pie.jpeg') }}" alt="Emilio del Solar" class="logopie">   
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
