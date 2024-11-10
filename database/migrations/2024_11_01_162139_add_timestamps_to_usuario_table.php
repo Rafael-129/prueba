@@ -12,9 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('Usuario', function (Blueprint $table) {
-            $table->timestamps(); // Esto añade `created_at` y `updated_at`
+            if (!Schema::hasColumn('Usuario', 'created_at')) {
+                $table->timestamp('created_at')->nullable();
+            }
+    
+            if (!Schema::hasColumn('Usuario', 'updated_at')) {
+                $table->timestamp('updated_at')->nullable();
+            }
         });
     }
+    
 
     /**
      * Reverse the migrations.

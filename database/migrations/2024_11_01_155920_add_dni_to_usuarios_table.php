@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('Usuario', function (Blueprint $table) {
-            $table->string('DNI')->unique(); // Agregar la columna DNI
+            if (!Schema::hasColumn('Usuario', 'DNI')) {
+                $table->string('DNI')->unique(); // Agregar la columna DNI solo si no existe
+            }
         });
     }
+    
 
     /**
      * Reverse the migrations.
