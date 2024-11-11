@@ -13,7 +13,7 @@ class AnunciosProfController extends Controller
     public function index()
     {
         $anuncios_profs = AnunciosProf::all();
-        return view('Anuncios.index',compact('anuncios'));
+        return view('Anuncios.index',compact('anuncios_profs'));
        
     }
 
