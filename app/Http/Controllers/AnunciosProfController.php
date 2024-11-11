@@ -13,7 +13,7 @@ class AnunciosProfController extends Controller
     public function index()
     {
         $anuncios_profs = AnunciosProf::all();
-        dd($anuncios_profs);
+       
     }
 
     /**
