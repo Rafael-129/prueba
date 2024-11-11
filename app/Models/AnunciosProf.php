@@ -9,4 +9,5 @@ class AnunciosProf extends Model
 {
     /** @use HasFactory<\Database\Factories\AnunciosProfFactory> */
     use HasFactory;
+    protected $fillable = ['image','fechapub','fechaev','lugar','detalle'];
 }
