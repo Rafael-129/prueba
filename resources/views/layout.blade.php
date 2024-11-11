@@ -8,6 +8,16 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body>
-    
+    @extends('layouts.headerProf') <!-- Asegúrate de usar el nombre correcto del archivo de layout -->
+
+    @section('title', 'Anuncios')
+
+    <div class="container mt-3">
+        @yield('body')
+    </div>
+
+    @section('content')
+
+    @endsection
 </body>
 </html>
