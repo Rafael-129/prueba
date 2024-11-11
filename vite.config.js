@@ -1,6 +1,3 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-
 export default defineConfig({
     plugins: [
         laravel({
@@ -11,4 +8,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'public/build', // Directorio de salida por defecto
+    },
 });
