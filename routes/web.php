@@ -19,6 +19,8 @@ use App\Http\Controllers\QuejasController;
 
 //App Profesores
 use App\Http\Controllers\ProfesorAnunciosController;
+use App\Http\Controllers\AnunciosProfController;
+
 
 
 
@@ -63,4 +65,5 @@ Route::get('/ProfesorAnuncios', [ProfesorAnunciosController::class, 'panuncios']
 Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
 
 Route::resource('anuncios_profs', App\Http\Controllers\AnunciosProfController::class);
- 
+Route::get('/anuncios_profs/{anunciosProf}/edit', [AnunciosProfController::class, 'edit'])->name('Anuncios.edit');
+

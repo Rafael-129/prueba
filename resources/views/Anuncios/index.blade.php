@@ -20,14 +20,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($games as $i => $row)
+                        @foreach($anuncios_profs as $i => $row)
                         <tr>
-                            <td>{{$i}}</td>
-                            <td>{{$row->image}}</td>
+                            <td>{{$i+1}}</td>
+                            <td>
+                                <img class="img-fluid" src="/storage/{{ $row->imagen}}">
+                            </td>
                             <td>{{$row->fechapub}}</td>
                             <td>{{$row->fechaev}}</td>
                             <td>{{$row->lugar}}</td>
                             <td>{{$row->detalle}}</td>
+                            <td>
+                                <a class="btn btn-warning" href="{{route('Anuncios.edit', $row->id)}}">
+                                    <i class="fa-solid fa-edit"></i>
+                                </a>
+                            </td>
+                            <td></td>
                         </tr>
                         @endforeach <!-- Cierre del bucle -->
                     </tbody>

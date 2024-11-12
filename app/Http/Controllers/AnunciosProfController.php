@@ -46,7 +46,7 @@ class AnunciosProfController extends Controller
      */
     public function edit(AnunciosProf $anunciosProf)
     {
-        //
+        return view('anuncios.edit', compact('anunciosProf'));
     }
 
     /**
