@@ -35,7 +35,15 @@
                                     <i class="fa-solid fa-edit"></i>
                                 </a>
                             </td>
-                            <td></td>
+                            <td>
+                                <form id="frm_{{$row->id}}" method="POST" action="{{route('Anuncios.destroy',$row->id)}}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach <!-- Cierre del bucle -->
                     </tbody>

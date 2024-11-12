@@ -62,6 +62,7 @@ class AnunciosProfController extends Controller
      */
     public function destroy(AnunciosProf $anunciosProf)
     {
-        //
+        $anunciosProf->delete(); // Elimina el registro del modelo
+        return redirect()->route('Anuncios.index')->with('success', 'Anuncio eliminado con éxito.');
     }
 }
