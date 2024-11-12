@@ -29,10 +29,10 @@
                             <td>{{$row->lugar}}</td>
                             <td>{{$row->detalle}}</td>
                         </tr>
+                        @endforeach <!-- Cierre del bucle -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 @endsection
