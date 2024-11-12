@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AnunciosProf extends Model
 {
-    /** @use HasFactory<\Database\Factories\AnunciosProfFactory> */
     use HasFactory;
-    protected $fillable = ['image','fechapub','fechaev','lugar','detalle'];
+    
+    protected $fillable = ['image', 'fechapub', 'fechaev', 'lugar', 'detalle'];
 }
