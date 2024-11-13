@@ -22,7 +22,7 @@ class AnunciosProfController extends Controller
      */
     public function create()
     {
-        //
+        return view('Anuncios.create');
     }
 
     /**
