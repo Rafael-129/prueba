@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('fechapub');
             $table->date('fechaev');
             $table->string('lugar',80);
-            $table->string('detalle',80);           
+            $table->string('detalle',280);           
             $table->timestamps();
         });
     }

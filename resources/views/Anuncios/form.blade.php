@@ -30,27 +30,27 @@
                     @csrf
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-image"></i></span>
-                        <input type="file" name="image" class="form-control" required>
-                        @isset($anuncio) value={{$anuncio->image}} @endisset accept="image/*" required>
+                        <input type="file" name="image" class="form-control" 
+                        @isset($anuncio) value={{$anuncio->image}} @endisset accept="image/*">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
-                        <input type="date" name="fechapub" class="form-control" placeholder="F. Publicación" required>
+                        <input type="date" name="fechapub" class="form-control" placeholder="F. Publicación"
                         @isset($anuncio) value={{$anuncio->fechapub}} @endisset required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
-                        <input type="date" name="fechaev" class="form-control" placeholder="F. Evento" required>
+                        <input type="date" name="fechaev" class="form-control" placeholder="F. Evento"
                         @isset($anuncio) value={{$anuncio->fechaev}} @endisset required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-trophy"></i></span>
-                        <input type="text" name="lugar" class="form-control" placeholder="Lugar" required>
+                        <input type="text" name="lugar" class="form-control" placeholder="Lugar"
                         @isset($anuncio) value={{$anuncio->lugar}} @endisset required>
                     </div> 
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-trophy"></i></span>
-                        <input type="text" name="detalle" class="form-control" placeholder="Detalle" required>
+                        <input type="text" name="detalle" class="form-control" placeholder="Detalle"
                         @isset($anuncio) value={{$anuncio->detalle}} @endisset required>
                     </div>
                     <button class="btn btn-success" type="submit">Guardar</button>    

@@ -32,7 +32,7 @@ class AnunciosProfController extends Controller
     {
         // Validar los datos recibidos
     $validatedData = $request->validate([
-        'image' => 'required|image',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'fechapub' => 'required|date',
         'fechaev' => 'required|date',
         'lugar' => 'required',
