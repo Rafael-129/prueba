@@ -5,5 +5,5 @@
 @endsection
 
 @section('action')
-    action = "{{route('anuncios.store')}}"
+    action = "{{ route('anuncios_profs.store') }}"
 @endsection

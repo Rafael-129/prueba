@@ -64,9 +64,4 @@ Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas'
 Route::get('/ProfesorAnuncios', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
 Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
 
-Route::resource('anuncios_profs', App\Http\Controllers\AnunciosProfController::class);
-Route::get('/anuncios_profs/{anunciosProf}/edit', [AnunciosProfController::class, 'edit'])->name('Anuncios.edit');
-Route::get('/anuncios_profs', [AnunciosProfController::class, 'index'])->name('anuncios.index');
-Route::get('/anuncios_profs/create', [AnunciosProfController::class, 'create'])->name('anuncios.create');
-Route::delete('/anuncios_profs/{anunciosProf}/destroy', [AnunciosProfController::class, 'destroy'])->name('Anuncios.destroy');
-Route::post('/anuncios', [AnunciosController::class, 'store'])->name('anuncios.store');
+Route::resource('anuncios_profs', AnunciosProfController::class);
