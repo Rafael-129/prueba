@@ -9,21 +9,13 @@ class AnunciosProf extends Model
 {
     use HasFactory;
 
-    protected $table = 'anuncios'; // Cambiar si el nombre de la tabla no es 'anuncios_profs'
-    protected $primaryKey = 'id_anuncio'; // Cambiar si la llave primaria no es 'id'
-    protected $fillable = ['image', 'fechapub', 'fechaev', 'lugar', 'detalle'];
+    protected $table = 'anuncios_profs'; // Verifica si coincide con el nombre de la tabla
+    protected $primaryKey = 'id'; // Verifica si coincide con la llave primaria
+    protected $fillable = ['image', 'fechapub', 'fechaev', 'lugar', 'detalle', 'created_at', 'updated_at'];
     protected $casts = [
         'fechapub' => 'datetime',
         'fechaev' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
-    protected $attributes = [
-        'lugar' => 'No especificado',
-        'detalle' => 'Sin detalle',
-    ];
-
-    public function getImageAttribute($value)
-    {
-        return asset('storage/' . $value); // Para imágenes
-    }
 }
-
