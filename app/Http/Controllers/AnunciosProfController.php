@@ -30,7 +30,21 @@ class AnunciosProfController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validar los datos recibidos
+    $validatedData = $request->validate([
+        'image' => 'required',
+        'fechapub' => 'required',
+        'fechaev' => 'required',
+        'lugar' => 'required',
+        'detalle' => 'required',
+        // Añade otras validaciones según los campos de tu formulario
+    ]);
+
+    // Crear un nuevo registro
+    AnunciosProf::create($validatedData);
+
+    // Redirigir después de guardar
+    return redirect()->route('anuncios.index')->with('success', 'Anuncio creado con éxito.');
     }
 
     /**

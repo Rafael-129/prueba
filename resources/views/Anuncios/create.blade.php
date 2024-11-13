@@ -1,5 +1,5 @@
 @extends('Anuncios.form')
-@section('forName')
+@section('formName')
     Crear
 @endsection
 @section('action')
