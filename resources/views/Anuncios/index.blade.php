@@ -31,12 +31,12 @@
                             <td>{{$row->lugar}}</td>
                             <td>{{$row->detalle}}</td>
                             <td>
-                                <a class="btn btn-warning" href="{{route('Anuncios.edit', $row->id)}}">
+                                <a class="btn btn-warning" href="{{route('anuncios_profs.edit', $row->id)}}">
                                     <i class="fa-solid fa-edit"></i>
                                 </a>
                             </td>
                             <td>
-                                <form id="frm_{{$row->id}}" method="POST" action="{{route('Anuncios.destroy',$row->id)}}">
+                                <form id="frm_{{$row->id}}" method="POST" action="{{route('anuncios_profs.destroy',$row->id)}}">
                                     @method('DELETE')
                                     @csrf
                                     <button type="button" class="btn btn-danger">
