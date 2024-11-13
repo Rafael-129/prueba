@@ -15,7 +15,7 @@
                     @csrf
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-image"></i></span>
-                        <input type="file" name="image" class="form-control" placeholder="Nombre" required>
+                        <input type="file" name="image" class="form-control" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
