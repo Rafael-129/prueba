@@ -44,7 +44,7 @@ class AnunciosProfController extends Controller
     AnunciosProf::create($validatedData);
 
     // Redirigir después de guardar
-    return redirect()->route('anuncios.index')->with('success', 'Anuncio creado con éxito.');
+    return redirect()->route('Anuncios.index')->with('success', 'Anuncio creado con éxito.');
     }
 
     /**
