@@ -58,18 +58,36 @@ class AnunciosProfController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AnunciosProf $anunciosProf)
+    public function edit($id)
     {
-        return view('Anuncios.edit', compact('anuncios_profs'));
+    $anuncios_profs = AnunciosProf::findOrFail($id);
+    return view('Anuncios.edit', compact('anuncios_profs'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AnunciosProf $anunciosProf)
+    public function update(Request $request, $id)
     {
-        //
+    $validated = $request->validate([
+        'image' => 'nullable|image|max:2048',
+        'fechapub' => 'required|date',
+        'fechaev' => 'required|date|after_or_equal:fechapub',
+        'lugar' => 'required|string|max:255',
+        'detalle' => 'required|string|max:500',
+    ]);
+
+    $anuncios_profs = AnunciosProf::findOrFail($id);
+    $anuncios_profs->update($validated);
+
+    if ($request->hasFile('image')) {
+        // Lógica para manejar la subida de la nueva imagen
     }
+
+    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio actualizado correctamente');
+}
+
 
     /**
      * Remove the specified resource from storage.
