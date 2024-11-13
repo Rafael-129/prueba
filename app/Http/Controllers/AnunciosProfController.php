@@ -32,9 +32,9 @@ class AnunciosProfController extends Controller
     {
         // Validar los datos recibidos
     $validatedData = $request->validate([
-        'image' => 'required',
-        'fechapub' => 'required',
-        'fechaev' => 'required',
+        'image' => 'required|image',
+        'fechapub' => 'required|date',
+        'fechaev' => 'required|date',
         'lugar' => 'required',
         'detalle' => 'required',
         // Añade otras validaciones según los campos de tu formulario

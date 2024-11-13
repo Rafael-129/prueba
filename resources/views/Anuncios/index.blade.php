@@ -3,6 +3,15 @@
     -Listado
 @endsection
 @section('body')
+@if($msj = Session::get('success'))
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="alert alert-success">
+                <p><i class="fa-solid fa-check"></i>{{$msj}}</p>
+        </div>
+    </div>
+</div>
+@endif
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
