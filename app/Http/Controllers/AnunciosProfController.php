@@ -12,8 +12,8 @@ class AnunciosProfController extends Controller
      */
     public function index()
     {
-        $anuncios_profs = AnunciosProf::all();
-        return view('Anuncios.index',compact('anuncios_profs'));
+        $anuncios  = AnunciosProf::all();
+        return view('anuncios_profs.index',compact('anuncios'));
        
     }
 

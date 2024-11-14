@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('anuncios_profs', function (Blueprint $table) {
             $table->id();
-            $table->string('image',80);
+            $table->string('image', 80)->nullable();
             $table->date('fechapub');
             $table->date('fechaev');
             $table->string('lugar',80);
