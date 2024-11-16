@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mb-3">
-    <p>Anuncios</p>
+    <p>Alumnos</p>
 
 </div>
 @endsection

@@ -92,8 +92,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Registro') }}">Registrar</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link intranet" href="{{ route('Login') }}">Salida</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('images/user-icon.png') }}" alt="Usuario" width="30" height="30" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
+                            <li><a class="dropdown-item" href="">Perfil</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

@@ -73,7 +73,7 @@
         text-decoration: underline;
     }
 
-</style>
+</style>    
 
 <br>
 <!-- Registro de Usuario -->
@@ -88,36 +88,53 @@
             @method('POST')
 
             <div>
-            <label for="nombre" class="form-label">Nombres</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <label for="nombre" class="form-label">Nombres</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
+                @if ($errors->has('nombre'))
+                    <div class="error-message">{{ $errors->first('nombre') }}</div>
+                @endif
             </div>
 
             <div>
-            <label for="apellido" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                <label for="apellido" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" value="{{ old('apellido') }}" required>
+                @if ($errors->has('apellido'))
+                    <div class="error-message">{{ $errors->first('apellido') }}</div>
+                @endif
             </div>
 
             <div class="mb-3">
                 <label for="DNI" class="form-label">DNI</label>
-                <input type="text" class="form-control" id="DNI" name="DNI" required>
+                <input type="text" class="form-control" id="DNI" name="DNI" value="{{ old('DNI') }}" required>
+                @if ($errors->has('DNI'))
+                    <div class="error-message">{{ $errors->first('DNI') }}</div>
+                @endif
             </div>
 
             <div class="mb-3">
                 <label for="rol" class="form-label">Rol</label>
                 <select name="rol" id="rol" class="form-select" required>
                     <option selected>Seleccione</option>
-                    <option value="profesor">Profesor</option>
-                    <option value="alumno">Alumno</option>
+                    @foreach($roles as $rol)
+                        <option value="{{ $rol->idRol }}" {{ old('rol') == $rol->idRol ? 'selected' : '' }}>
+                            {{ $rol->nombre }}
+                        </option>
+                    @endforeach
                 </select>
+                @if ($errors->has('rol'))
+                    <div class="error-message">{{ $errors->first('rol') }}</div>
+                @endif
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password" name="password" required>
+                @if ($errors->has('password'))
+                    <div class="error-message">{{ $errors->first('password') }}</div>
+                @endif
             </div>
 
             <button type="submit" class="boton-login">Registrar</button>
-
         </form>
     </div>
 </div>

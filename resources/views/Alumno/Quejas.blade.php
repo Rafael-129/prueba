@@ -153,7 +153,7 @@
                 Destinatario (consumidor, proveedor o INDECOPI según corresponda). 
                 La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es 
                 requisito previo para interponer una denuncia ante el INDECOPI. El proveedor deberá dar respuesta 
-                al reclamo en un plazo no mayor a quince (15) días hábiles.
+                al reclamo en un plazo no mayor 48 horas.
             </p>
         </form>
     </div>

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens; // Si planeas usar autenticación API
 use Laravel\Fortify\TwoFactorAuthenticatable; // Para autenticación de dos factores
 use Laravel\Jetstream\HasProfilePhoto; // Para fotos de perfil
@@ -33,12 +32,6 @@ class Usuario extends Authenticatable
 
     public $timestamps = true; // Para manejar timestamps
 
-    // Mutador para el password
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password); // Usar Hash::make
-    }
-
     // Accesor para URL de la foto de perfil
     public function getProfilePhotoUrlAttribute()
     {
@@ -51,7 +44,6 @@ class Usuario extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime', // Si decides incluir verificación de email
-            'password' => 'hashed', // Almacenamiento seguro de contraseñas
         ];
     }
 }

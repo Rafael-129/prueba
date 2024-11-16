@@ -25,25 +25,25 @@
             <h2 class="text-gray-700 font-semibold mb-4">Datos del padre de familia:</h2>
 
             <!-- Formulario -->
-            <form action="#" method="POST">
+            <form action="https://formsubmit.co/5778b39c84f250b33920d954b15c1cd1" method="POST">
                 
                 <!-- Nombre y Apellidos -->
                 <div class="flex space-x-4 mb-4">
-                    <input type="text" placeholder="Nombre" class="w-1/2 px-3 py-2 border border-gray-300 rounded">
-                    <input type="text" placeholder="Apellidos" class="w-1/2 px-3 py-2 border border-gray-300 rounded">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="w-1/2 px-3 py-2 border border-gray-300 rounded">
+                    <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" class="w-1/2 px-3 py-2 border border-gray-300 rounded">
                 </div>
                 
                 <!-- DNI, Email y Celular -->
                 <div class="flex space-x-4 mb-4">
-                    <input type="text" placeholder="DNI" class="w-1/3 px-3 py-2 border border-gray-300 rounded">
-                    <input type="email" placeholder="Email" class="w-1/3 px-3 py-2 border border-gray-300 rounded">
-                    <input type="tel" placeholder="Celular" class="w-1/3 px-3 py-2 border border-gray-300 rounded">
+                    <input type="text" id="dni" name="dni" placeholder="DNI" class="w-1/3 px-3 py-2 border border-gray-300 rounded">
+                    <input type="email" id="email" name="email" placeholder="Email" class="w-1/3 px-3 py-2 border border-gray-300 rounded">
+                    <input type="tel" id="celular" name="celular" placeholder="Celular" class="w-1/3 px-3 py-2 border border-gray-300 rounded">
                 </div>
                 
                 <!-- Hora de contacto -->
                 <div class="mb-4">
-                    <label class="block text-gray-700 mb-1">¿A qué hora te contactamos?</label>
-                    <select class="w-full px-3 py-2 border border-gray-300 rounded">
+                    <label class="block text-gray-700 mb-1" for="hora_contacto">¿A qué hora te contactamos?</label>
+                    <select id="hora_contacto" name="hora_contacto" class="w-full px-3 py-2 border border-gray-300 rounded">
                         <option>8 a.m. a 11 a.m.</option>
                         <option>11 a.m. a 2 p.m.</option>
                         <option>2 p.m. a 5 p.m.</option>
@@ -52,8 +52,8 @@
 
                 <!-- Grado de interés -->
                 <div class="mb-4">
-                    <label class="block text-gray-700 mb-1">Grado de interés</label>
-                    <select class="w-full px-3 py-2 border border-gray-300 rounded">
+                    <label class="block text-gray-700 mb-1" for="grado_interes">Grado de interés</label>
+                    <select id="grado_interes" name="grado_interes" class="w-full px-3 py-2 border border-gray-300 rounded">
                         <option>1ero primaria</option>
                         <option>2do primaria</option>
                         <option>3ero primaria</option>
@@ -65,12 +65,12 @@
 
                 <!-- Checkbox de políticas -->
                 <div class="flex items-center mb-4">
-                    <input type="checkbox" class="mr-2">
-                    <label class="text-gray-700">Acepto las políticas de uso de datos.</label>
+                    <input type="checkbox" id="politicas" name="politicas" class="mr-2">
+                    <label class="text-gray-700" for="politicas">Acepto las políticas de uso de datos.</label>
                 </div>
 
                 <!-- Botón de envío -->
-                <button class="w-full bg-blue-700 text-white py-2 rounded-full hover:bg-blue-800 transition">Solicitar información</button>
+                <button type="submit" class="w-full bg-blue-700 text-white py-2 rounded-full hover:bg-blue-800 transition">Solicitar información</button>
             </form>
 
         </div>
