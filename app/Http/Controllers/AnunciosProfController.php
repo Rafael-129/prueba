@@ -12,10 +12,12 @@ class AnunciosProfController extends Controller
      */
     public function index()
     {
-        $anuncios  = AnunciosProf::all();
-        return view('anuncios_profs.index',compact('anuncios'));
-       
+        $anuncios_profs = AnunciosProf::all(); // Cambia el nombre de la variable
+        return view('Anuncios.index', compact('anuncios_profs')); // Pasa la variable correcta
     }
+    
+    
+    
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +46,8 @@ class AnunciosProfController extends Controller
     AnunciosProf::create($validatedData);
 
     // Redirigir después de guardar
-    return redirect()->route('Anuncios.index')->with('success', 'Anuncio creado con éxito.');
+    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito.');
+
     }
 
     /**
