@@ -3,6 +3,17 @@
     -Listado
 @endsection
 @section('body')
+
+<div class="row mb-3">
+    <div class="col-12">
+        <a href="{{ route('anuncios_profs.index') }}" class="btn btn-primary">Ver todos los anuncios</a>
+        <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">Crear un nuevo anuncio</a>
+        <a href="{{ route('anuncios_profs.show', ['anuncios_prof' => 1]) }}" class="btn btn-info">Ver detalles del anuncio (ID 1)</a>
+
+    </div>
+</div>
+
+
 @if($msj = Session::get('success'))
     <div class="row">
         <div class="col-md-4 offset-md-4">
