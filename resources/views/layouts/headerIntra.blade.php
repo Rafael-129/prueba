@@ -78,7 +78,7 @@
                         <a class="nav-link" href="{{ route('Alumno.anuncios') }}">Anuncios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('Alumno.docentes') }}">Docentes</a>
+                        <a class="nav-link" href="{{ route('Alumno.Citas') }}">Citas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Alumno.quejas') }}">Conectados</a>

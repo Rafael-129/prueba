@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AnunciosController;
 use App\Http\Controllers\CitasController;
+use App\Http\Controllers\profesorCitasController;
 use App\Http\Controllers\HorariosController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\QuejasController;
@@ -37,7 +38,7 @@ Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas'
 // Rutas de la aplicación para Profesores (Intranet)
 Route::get('/ProfesorAnuncios', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
 Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
-Route::get('/ProfesorCitas', [CitasController::class, 'Citas'])->name('Profesor.Citas');
+Route::get('/ProfesorCitas', [profesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 
 // Otros recursos protegidos
 Route::resource('anuncios_profs', AnunciosProfController::class);
