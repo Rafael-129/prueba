@@ -53,7 +53,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Otros recursos protegidos
-Route::resource('anuncios_profs', AnunciosProfController::class);
+
+
+// Rutas individuales para AnunciosProf
+Route::get('/anuncios_profs', [AnunciosProfController::class, 'index'])->name('anuncios_profs.index');
+Route::get('/anuncios_profs/create', [AnunciosProfController::class, 'create'])->name('anuncios_profs.create');
+Route::post('/anuncios_profs', [AnunciosProfController::class, 'store'])->name('anuncios_profs.store');
+Route::get('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'show'])->name('anuncios_profs.show');
+Route::get('/anuncios_profs/{anuncios_prof}/edit', [AnunciosProfController::class, 'edit'])->name('anuncios_profs.edit');
+Route::put('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'update'])->name('anuncios_profs.update');
+Route::delete('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'destroy'])->name('anuncios_profs.destroy');
+
 
 // Ruta para cerrar sesión
 Route::post('/logout', function () {
