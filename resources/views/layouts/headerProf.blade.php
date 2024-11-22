@@ -84,7 +84,7 @@
                         <a class="nav-link" href="{{ route('Profesor.quejas') }}">Quejas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Notas</a>
+                        <a class="nav-link" href="{{ route('Profesor.Notas') }}">Notas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Horarios</a>

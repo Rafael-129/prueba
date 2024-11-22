@@ -11,6 +11,7 @@ use App\Http\Controllers\NotasController;
 use App\Http\Controllers\QuejasController;
 use App\Http\Controllers\ProfesorAnunciosController;
 use App\Http\Controllers\AnunciosProfController;
+use App\Http\Controllers\ProfesorNotasController;
 
 
 // Rutas de acceso público (Index)
@@ -39,6 +40,17 @@ Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas'
 Route::get('/ProfesorAnuncios', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
 Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
 Route::get('/ProfesorCitas', [profesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
+Route::get('/ProfesorNotas', [profesorNotasController::class, 'profNotas'])->name('Profesor.Notas');
+
+Route::middleware(['auth'])->group(function () {
+    // Rutas accesibles solo para usuarios autenticados
+    Route::get('profesor/notas', [ProfesorNotasController::class, 'profNotas'])->name('profesor.notas.index');
+    Route::get('profesor/notas/create', [ProfesorNotasController::class, 'create'])->name('profesor.notas.create');
+    Route::post('profesor/notas', [ProfesorNotasController::class, 'store'])->name('profesor.notas.store');
+    Route::get('profesor/notas/{nota}/edit', [ProfesorNotasController::class, 'edit'])->name('profesor.notas.edit');
+    Route::put('profesor/notas/{nota}', [ProfesorNotasController::class, 'update'])->name('profesor.notas.update');
+    Route::delete('profesor/notas/{nota}', [ProfesorNotasController::class, 'destroy'])->name('profesor.notas.destroy');
+});
 
 // Otros recursos protegidos
 Route::resource('anuncios_profs', AnunciosProfController::class);
