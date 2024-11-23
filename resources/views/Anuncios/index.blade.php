@@ -6,27 +6,6 @@
 
 <div class="row mb-3">
     <div class="col-12">
-        <form action="{{ route('anuncios_profs.index') }}" method="GET" class="mb-3">
-            <div class="row">
-                <!-- Campo para filtrar por lugar -->
-                <div class="col-md-4">
-                    <label for="lugar" class="form-label">Buscar anuncio por lugar</label>
-                    <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
-                </div>
-
-                <!-- Campo para filtrar por fecha del evento -->
-                <div class="col-md-4">
-                    <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento</label>
-                    <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
-                </div>
-
-                <!-- Botones -->
-                <div class="col-md-4 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary me-2">Buscar</button>
-                    <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">Restablecer</a>
-                </div>
-            </div>
-        </form>
         <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">Crear un nuevo anuncio</a>
     </div>
 </div>
@@ -35,11 +14,30 @@
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <div class="alert alert-success">
-                <p><i class="fa-solid fa-check"></i>{{$msj}}</p>
+                <p><i class="fa-solid fa-check"></i> {{ $msj }}</p>
             </div>
         </div>
     </div>
 @endif
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="GET" action="{{ route('anuncios_profs.index') }}">
+            <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
+            <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
+    </div>
+    <div class="col-md-6">
+            <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento:</label>
+            <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12 text-end">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">Restablecer</a>
+        </form>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
@@ -60,7 +58,7 @@
                 <tbody>
                     @foreach($anuncios_profs as $i => $row)
                     <tr>
-                        <td>{{$i+1}}</td>
+                        <td>{{ $loop->iteration + ($anuncios_profs->currentPage() - 1) * $anuncios_profs->perPage() }}</td>
                         <td>
                             @if($row->image)
                                 <img class="img-fluid" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
@@ -68,31 +66,38 @@
                                 <span>Sin imagen</span>
                             @endif
                         </td>
-                        <td>{{$row->fechapub}}</td>
-                        <td>{{$row->fechaev}}</td>
-                        <td>{{$row->lugar}}</td>
-                        <td>{{$row->detalle}}</td>
-                        <td class="text-center">
-                            <!-- Ícono para editar -->
-                            <a class="btn btn-link text-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
-                                <i class="fa-solid fa-pencil-alt"></i> <!-- Ícono de lápiz -->
+                        <td>{{ $row->fechapub }}</td>
+                        <td>{{ $row->fechaev }}</td>
+                        <td>{{ $row->lugar }}</td>
+                        <td>{{ $row->detalle }}</td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
+                                <i class="fa-solid fa-pencil-alt"></i>
                             </a>
                         </td>
-                        <td class="text-center">
-                            <!-- Ícono para eliminar -->
-                            <form id="frm_{{$row->id}}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}" class="d-inline">
+                        <td>
+                            <form id="frm_{{ $row->id }}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-link text-danger">
-                                    <i class="fa-solid fa-trash"></i> <!-- Ícono de basurero -->
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
                         </td>
                     </tr>
-                    @endforeach <!-- Cierre del bucle -->
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <div class="pagination-wrapper">
+            {{ $anuncios_profs->links('pagination::bootstrap-5') }}
+        </div>
+    </div>
+</div>
+
 @endsection

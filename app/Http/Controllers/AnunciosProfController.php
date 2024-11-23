@@ -15,24 +15,25 @@ class AnunciosProfController extends Controller
     {
         // Inicializar la consulta base
         $query = AnunciosProf::query();
-    
+
         // Aplicar filtro por lugar, si se ha ingresado
         if ($request->filled('lugar')) {
             $query->where('lugar', 'like', '%' . $request->input('lugar') . '%');
         }
-    
+
         // Aplicar filtro por fecha del evento, si se ha ingresado
         if ($request->filled('fechaev')) {
             $query->where('fechaev', $request->input('fechaev'));
         }
-    
-        // Obtener los resultados filtrados
-        $anuncios_profs = $query->get();
-    
+
+        // Obtener los resultados filtrados con paginación (7 por página)
+        $anuncios_profs = $query->paginate(7);
+
         // Retornar la vista con los resultados
         return view('Anuncios.index', compact('anuncios_profs'));
     }
-    
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,35 +47,35 @@ class AnunciosProfController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // Validar los datos recibidos
-    $validatedData = $request->validate([
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'fechapub' => 'required|date',
-        'fechaev' => 'required|date|after_or_equal:fechapub',
-        'lugar' => 'required|string|max:255',
-        'detalle' => 'required|string|max:500',
-    ]);
+    {
+        // Validar los datos recibidos
+        $validatedData = $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fechapub' => 'required|date',
+            'fechaev' => 'required|date|after_or_equal:fechapub',
+            'lugar' => 'required|string|max:255',
+            'detalle' => 'required|string|max:500',
+        ]);
 
-    // Crear el registro sin la imagen inicialmente
-    $anuncio = AnunciosProf::create($validatedData);
+        // Crear el registro sin la imagen inicialmente
+        $anuncio = AnunciosProf::create($validatedData);
 
-    // Verificar si se subió una imagen
-    if ($request->hasFile('image')) {
-        // Crear la carpeta 'img' si no existe
-        if (!Storage::exists('public/img')) {
-            Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
+        // Verificar si se subió una imagen
+        if ($request->hasFile('image')) {
+            // Crear la carpeta 'img' si no existe
+            if (!Storage::exists('public/img')) {
+                Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
+            }
+
+            // Guardar la imagen
+            $nombre = $anuncio->id . '.' . $request->file('image')->getClientOriginalExtension();
+            $ruta = $request->file('image')->storeAs('public/img', $nombre); // Guarda en storage/app/public/img
+            $anuncio->image = 'img/' . $nombre; // Guarda la ruta relativa
+            $anuncio->save(); // Actualiza el anuncio con la ruta de la imagen
         }
 
-        // Guardar la imagen
-        $nombre = $anuncio->id . '.' . $request->file('image')->getClientOriginalExtension();
-        $ruta = $request->file('image')->storeAs('public/img', $nombre); // Guarda en storage/app/public/img
-        $anuncio->image = 'img/' . $nombre; // Guarda la ruta relativa
-        $anuncio->save(); // Actualiza el anuncio con la ruta de la imagen
+        return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito.');
     }
-
-    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito.');
-}
 
 
 
@@ -151,7 +152,7 @@ class AnunciosProfController extends Controller
         if (!$anuncio) {
             return redirect()->route('anuncios_profs.index')->with('error', 'El anuncio no existe.');
         }
-        
+
 
         $anuncio->delete();
         return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio eliminado correctamente.');
