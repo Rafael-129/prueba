@@ -10,13 +10,7 @@
         <!-- Botón "Agregar Nota" alineado a la izquierda -->
         <a href="{{ route('profesor.notas.create') }}" class="btn btn-primary btn-sm">Agregar Nota</a>
 
-        <!-- Select para alumnos alineado a la derecha -->
-        <select id="selectAlumno" class="form-select" style="width: auto; padding: 5px; margin-left: auto;">
-            <option value="" selected>Seleccionar Alumno</option>
-            @foreach($alumnos as $alumno)
-                <option value="{{ $alumno->idAlumno }}">{{ $alumno->nombre }} {{ $alumno->apellido }}</option>
-            @endforeach
-        </select>
+
     </div>
 
     <!-- Tabla con Notas -->
@@ -51,34 +45,4 @@
     </table>
 </div>
 
-<!-- Inicia Select2 -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Inicializa Select2 en el select con id 'selectAlumno'
-        $('#selectAlumno').select2({
-            placeholder: "Seleccionar Alumno",
-            allowClear: true
-        });
-
-        // Filtrado de notas según el alumno seleccionado
-        $('#selectAlumno').on('change', function() {
-            var alumnoId = $(this).val();
-            
-            if (alumnoId) {
-                // Si se seleccionó un alumno, solo mostrar las notas de ese alumno
-                $('#tablaNotas .nota-row').each(function() {
-                    var rowAlumnoId = $(this).data('alumno-id');
-                    if (rowAlumnoId == alumnoId) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            } else {
-                // Si no se seleccionó ningún alumno, mostrar todas las filas
-                $('#tablaNotas .nota-row').show();
-            }
-        });
-    });
-</script>
 @endsection
