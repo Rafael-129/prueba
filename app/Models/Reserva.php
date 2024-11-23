@@ -8,11 +8,16 @@ class Reserva extends Model
 {
     use HasFactory;
 
-    // Definir el nombre de la tabla para que coincida con la tabla de la base de datos
+    // Definir el nombre de la tabla
     protected $table = 'reserva';
-    
+
+    // Definir la clave primaria
+    protected $primaryKey = 'idReservas';
+
+    // Indicar que no se manejan timestamps automáticamente
     public $timestamps = false; 
 
+    // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'fechaReserva', 'horaReserva', 'idProfesor', 'idAlumno', 'idEstadoReserva', 'descargo',
     ];

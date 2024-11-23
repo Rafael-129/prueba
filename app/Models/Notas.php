@@ -10,7 +10,7 @@ class Notas extends Model
     use HasFactory;
 
     protected $primaryKey = 'idNotas';
-
+    public $timestamps = false; 
     // Definir el nombre de la tabla si no es plural
     protected $table = 'notas';
 

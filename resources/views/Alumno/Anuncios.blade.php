@@ -3,8 +3,5 @@
 @section('title', 'Contactos')
 
 @section('content')
-<div class="mb-3">
-    <p>Alumnos</p>
-
-</div>
+<H1>EN CONTRUCCION</H1>
 @endsection

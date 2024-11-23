@@ -28,7 +28,7 @@
 
     <!-- Nivel 1 -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img src="link-a-la-imagen-del-nivel-1.jpg" alt="Nivel 1" class="w-full h-48 object-cover">
+        <img src="{{ asset('images/IIII.jpeg') }}" alt="Nivel 1" class="w-full h-48 object-cover">
         <div class="p-6">
             <h3 class="text-xl font-semibold text-blue-800">Nivel 1</h3>
             <p class="mt-2 text-gray-600">Introducción a la lectura, escritura y desarrollo de habilidades sociales en un entorno de aprendizaje seguro.</p>
@@ -37,7 +37,7 @@
 
     <!-- Nivel 2 -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img src="link-a-la-imagen-del-nivel-2.jpg" alt="Nivel 2" class="w-full h-48 object-cover">
+        <img src="{{ asset('images/IIII2.jpeg') }}" alt="Nivel 2" class="w-full h-48 object-cover">
         <div class="p-6">
             <h3 class="text-xl font-semibold text-blue-800">Nivel 2</h3>
             <p class="mt-2 text-gray-600">Fortalecimiento de la lectura y escritura, y primeros pasos en matemáticas básicas a través de actividades lúdicas.</p>
@@ -46,7 +46,7 @@
 
     <!-- Nivel 3 -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img src="link-a-la-imagen-del-nivel-3.jpg" alt="Nivel 3" class="w-full h-48 object-cover">
+        <img src="{{ asset('images/IIII3.jpeg') }}" alt="Nivel 3" class="w-full h-48 object-cover">
         <div class="p-6">
             <h3 class="text-xl font-semibold text-blue-800">Nivel 3</h3>
             <p class="mt-2 text-gray-600">Desarrollo de habilidades de pensamiento crítico y resolución de problemas en matemáticas y ciencias.</p>
@@ -55,7 +55,7 @@
 
     <!-- Nivel 4 -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img src="link-a-la-imagen-del-nivel-4.jpg" alt="Nivel 4" class="w-full h-48 object-cover">
+        <img src="{{ asset('images/IIII4.jpeg') }}" alt="Nivel 4" class="w-full h-48 object-cover">
         <div class="p-6">
             <h3 class="text-xl font-semibold text-blue-800">Nivel 4</h3>
             <p class="mt-2 text-gray-600">Enfoque en la comprensión lectora y expresión escrita, junto con conceptos de ciencias naturales y sociales.</p>
@@ -64,7 +64,7 @@
 
     <!-- Nivel 5 -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img src="link-a-la-imagen-del-nivel-5.jpg" alt="Nivel 5" class="w-full h-48 object-cover">
+        <img src="{{ asset('images/IIII5.jpeg') }}" alt="Nivel 5" class="w-full h-48 object-cover">
         <div class="p-6">
             <h3 class="text-xl font-semibold text-blue-800">Nivel 5</h3>
             <p class="mt-2 text-gray-600">Profundización en habilidades matemáticas y pensamiento lógico, así como en ciencias y tecnología.</p>
@@ -73,7 +73,7 @@
 
     <!-- Nivel 6 -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img src="link-a-la-imagen-del-nivel-6.jpg" alt="Nivel 6" class="w-full h-48 object-cover">
+        <img src="{{ asset('images/IIII6.jpeg') }}" alt="Nivel 6" class="w-full h-48 object-cover">
         <div class="p-6">
             <h3 class="text-xl font-semibold text-blue-800">Nivel 6</h3>
             <p class="mt-2 text-gray-600">Preparación integral para la transición a secundaria, enfocada en autonomía, responsabilidad y habilidades sociales.</p>

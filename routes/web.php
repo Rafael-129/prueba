@@ -74,3 +74,6 @@ Route::post('/logout', function () {
     Auth::logout();
      return redirect('/Login'); 
     })->name('logout');
+
+
+    Route::get('/alumnos/anuncios', [AnunciosProfController::class, 'index'])->name('anuncios.alumnos.index');
