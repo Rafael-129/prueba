@@ -31,7 +31,6 @@ Route::post('/Registrar', [LoginController::class, 'registrar'])->name('registra
 
 // Rutas de la aplicación para Alumnos (Intraner)
 Route::get('/Anuncios', [AnunciosController::class, 'anuncios'])->name('Alumno.anuncios');
-Route::get('/Citas', [CitasController::class, 'Citas'])->name('Alumno.Citas');
 Route::get('/Horarios', [HorariosController::class, 'horarios'])->name('Alumno.horarios');
 Route::get('/Notas', [NotasController::class, 'notas'])->name('Alumno.notas');
 Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas');
@@ -51,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profesor/notas/{nota}', [ProfesorNotasController::class, 'update'])->name('profesor.notas.update');
     Route::delete('profesor/notas/{nota}', [ProfesorNotasController::class, 'destroy'])->name('profesor.notas.destroy');
 });
+
+Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Citas');
+Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');
+Route::get('/ProfesorCitas', [ProfesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 
 // Otros recursos protegidos
 
