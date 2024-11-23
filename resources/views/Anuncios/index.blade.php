@@ -10,13 +10,13 @@
             <div class="row">
                 <!-- Campo para filtrar por lugar -->
                 <div class="col-md-4">
-                    <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
+                    <label for="lugar" class="form-label">Buscar anuncio por lugar</label>
                     <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
                 </div>
 
                 <!-- Campo para filtrar por fecha del evento -->
                 <div class="col-md-4">
-                    <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento:</label>
+                    <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento</label>
                     <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
                 </div>
 
@@ -58,40 +58,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($anuncios_profs as $i => $row)
+                    @foreach($anuncios_profs as $i => $row)
                     <tr>
-                        <td>{{ $i + 1 }}</td>
+                        <td>{{$i+1}}</td>
                         <td>
                             @if($row->image)
-                                <img class="img-fluid" src="{{ url('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
+                                <img class="img-fluid" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
                             @else
                                 <span>Sin imagen</span>
                             @endif
                         </td>
-                        <td>{{ $row->fechapub }}</td>
-                        <td>{{ $row->fechaev }}</td>
-                        <td>{{ $row->lugar }}</td>
-                        <td>{{ $row->detalle }}</td>
-                        <td>
-                            <a class="btn btn-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
-                                <i class="fa-solid fa-edit"></i>
+                        <td>{{$row->fechapub}}</td>
+                        <td>{{$row->fechaev}}</td>
+                        <td>{{$row->lugar}}</td>
+                        <td>{{$row->detalle}}</td>
+                        <td class="text-center">
+                            <!-- Ícono para editar -->
+                            <a class="btn btn-link text-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
+                                <i class="fa-solid fa-pencil-alt"></i> <!-- Ícono de lápiz -->
                             </a>
                         </td>
-                        <td>
-                            <form id="frm_{{ $row->id }}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}">
+                        <td class="text-center">
+                            <!-- Ícono para eliminar -->
+                            <form id="frm_{{$row->id}}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}" class="d-inline">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fa-solid fa-trash"></i>
+                                <button type="submit" class="btn btn-link text-danger">
+                                    <i class="fa-solid fa-trash"></i> <!-- Ícono de basurero -->
                                 </button>
                             </form>
                         </td>
                     </tr>
-                    @empty
-                    <tr>
-                        <td colspan="8" class="text-center">No se encontraron anuncios con los filtros aplicados.</td>
-                    </tr>
-                    @endforelse
+                    @endforeach <!-- Cierre del bucle -->
                 </tbody>
             </table>
         </div>
