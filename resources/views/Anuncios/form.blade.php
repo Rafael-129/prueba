@@ -1,4 +1,4 @@
-@extends('layout') <!-- Asegúrate de usar el nombre correcto del archivo de layout -->
+@extends('layout') 
 
 @section('title')
     - @yield('formName')
