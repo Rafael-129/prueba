@@ -6,18 +6,26 @@
 
 <div class="row mb-3">
     <div class="col-12">
-        <form action="{{ route('anuncios_profs.index') }}" method="GET" class="d-flex mb-3">
-            <!-- Campo para filtrar por lugar -->
-            <input type="text" name="lugar" class="form-control me-2" placeholder="Buscar por lugar" value="{{ request('lugar') }}">
-            
-            <!-- Campo para filtrar por fecha del evento -->
-            <input type="date" name="fechaev" class="form-control me-2" value="{{ request('fechaev') }}">
-            
-            <!-- Botón de buscar -->
-            <button type="submit" class="btn btn-primary me-2">Buscar</button>
-            
-            <!-- Botón para restablecer filtros -->
-            <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">Restablecer</a>
+        <form action="{{ route('anuncios_profs.index') }}" method="GET" class="mb-3">
+            <div class="row">
+                <!-- Campo para filtrar por lugar -->
+                <div class="col-md-4">
+                    <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
+                    <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
+                </div>
+
+                <!-- Campo para filtrar por fecha del evento -->
+                <div class="col-md-4">
+                    <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento:</label>
+                    <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
+                </div>
+
+                <!-- Botones -->
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">Buscar</button>
+                    <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">Restablecer</a>
+                </div>
+            </div>
         </form>
         <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">Crear un nuevo anuncio</a>
     </div>
@@ -55,7 +63,7 @@
                         <td>{{ $i + 1 }}</td>
                         <td>
                             @if($row->image)
-                                <img class="img-fluid" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
+                                <img class="img-fluid" src="{{ url('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
                             @else
                                 <span>Sin imagen</span>
                             @endif
