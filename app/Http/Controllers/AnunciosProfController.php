@@ -11,11 +11,28 @@ class AnunciosProfController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $anuncios_profs = AnunciosProf::all();
+        // Inicializar la consulta base
+        $query = AnunciosProf::query();
+    
+        // Aplicar filtro por lugar, si se ha ingresado
+        if ($request->filled('lugar')) {
+            $query->where('lugar', 'like', '%' . $request->input('lugar') . '%');
+        }
+    
+        // Aplicar filtro por fecha del evento, si se ha ingresado
+        if ($request->filled('fechaev')) {
+            $query->where('fechaev', $request->input('fechaev'));
+        }
+    
+        // Obtener los resultados filtrados
+        $anuncios_profs = $query->get();
+    
+        // Retornar la vista con los resultados
         return view('Anuncios.index', compact('anuncios_profs'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +69,7 @@ class AnunciosProfController extends Controller
         // Guardar la imagen
         $nombre = $anuncio->id . '.' . $request->file('image')->getClientOriginalExtension();
         $ruta = $request->file('image')->storeAs('public/img', $nombre); // Guarda en storage/app/public/img
-        $anuncio->image = 'storage/img/' . $nombre; // Guarda la ruta accesible desde public/storage
+        $anuncio->image = 'img/' . $nombre; // Guarda la ruta relativa
         $anuncio->save(); // Actualiza el anuncio con la ruta de la imagen
     }
 
@@ -83,7 +100,7 @@ class AnunciosProfController extends Controller
 
             // Eliminar la imagen anterior si existe
             if ($anuncio->image) {
-                Storage::delete(str_replace('storage/', 'public/', $anuncio->image));
+                Storage::delete('public/' . $anuncio->image);
             }
 
             // Subir la nueva imagen
@@ -128,8 +145,13 @@ class AnunciosProfController extends Controller
 
         // Eliminar la imagen asociada si existe
         if ($anuncio->image) {
-            Storage::delete(str_replace('storage/', 'public/', $anuncio->image));
+            Storage::delete('public/' . $anuncio->image);
         }
+
+        if (!$anuncio) {
+            return redirect()->route('anuncios_profs.index')->with('error', 'El anuncio no existe.');
+        }
+        
 
         $anuncio->delete();
         return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio eliminado correctamente.');
