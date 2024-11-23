@@ -38,7 +38,6 @@ Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas'
 // Rutas de la aplicación para Profesores (Intranet)
 Route::get('/anuncios_profs', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
 Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
-Route::get('/ProfesorCitas', [profesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 Route::get('/ProfesorNotas', [profesorNotasController::class, 'profNotas'])->name('Profesor.Notas');
 
 Route::middleware(['auth'])->group(function () {
@@ -51,9 +50,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('profesor/notas/{nota}', [ProfesorNotasController::class, 'destroy'])->name('profesor.notas.destroy');
 });
 
+//rutas para citas
 Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Citas');
 Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');
 Route::get('/ProfesorCitas', [ProfesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
+Route::put('/profesor/citas/{id}', [ProfesorCitasController::class, 'actualizarEstado'])->name('profesor.citas.update');
 
 // Otros recursos protegidos
 

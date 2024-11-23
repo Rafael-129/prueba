@@ -42,4 +42,10 @@ class Alumno extends Model
         // Un alumno está relacionado con un curso por nombre
         return $this->belongsTo(Cursos::class, 'curso', 'nombreCurso');
     }
+
+    // Relación con EstadoReserva
+    public function estadoReserva()
+    {
+        return $this->belongsTo(EstadoReserva::class, 'idEstadoReserva', 'idEstadoReserva');
+    }
 }

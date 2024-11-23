@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,36 +8,30 @@ class Reserva extends Model
 {
     use HasFactory;
 
-    // Especificar el nombre de la tabla
+    // Definir el nombre de la tabla para que coincida con la tabla de la base de datos
     protected $table = 'reserva';
+    
+    public $timestamps = false; 
 
-    public $timestamps = false;  // Si no usas created_at y updated_at
-
-    // Otros atributos del modelo
     protected $fillable = [
-        'fechaReserva',
-        'horaReserva',
-        'idProfesor',
-        'idAlumno',
-        'idEstadoReserva',
-        'descargo',
+        'fechaReserva', 'horaReserva', 'idProfesor', 'idAlumno', 'idEstadoReserva', 'descargo',
     ];
 
-    // Relación con Profesor (usando idProfesor)
-    public function profesor()
-    {
-        return $this->belongsTo(Profesor::class, 'idProfesor', 'idProfesor');
-    }
-
-    // Relación con Alumno (usando idAlumno)
+    // Relación con el Alumno
     public function alumno()
     {
-        return $this->belongsTo(Alumno::class, 'idAlumno', 'idAlumno');
+        return $this->belongsTo(Alumno::class, 'idAlumno');
     }
 
-    // Relación con EstadoReserva (usando idEstadoReserva)
+    // Relación con el Profesor
+    public function profesor()
+    {
+        return $this->belongsTo(Profesor::class, 'idProfesor');
+    }
+
+    // Relación con el EstadoReserva
     public function estadoReserva()
     {
-        return $this->belongsTo(EstadoReserva::class, 'idEstadoReserva', 'idEstadoReserva');
+        return $this->belongsTo(EstadoReserva::class, 'idEstadoReserva');
     }
 }
