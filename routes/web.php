@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profesor/notas/{nota}', [ProfesorNotasController::class, 'update'])->name('profesor.notas.update');
     Route::delete('profesor/notas/{nota}', [ProfesorNotasController::class, 'destroy'])->name('profesor.notas.destroy');
 });
+
 //rutas para citas
 Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Citas');
 Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');

@@ -9,7 +9,6 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         <h1 class="text-3xl font-bold mb-6 text-center">Mis Citas</h1>
-
         <h2 class="text-2xl font-semibold mb-4">Citas Programadas</h2>
         @if($citas->isNotEmpty())
             <table class="table-auto w-full border-collapse border border-gray-300 mb-6">
@@ -35,7 +34,6 @@
         @else
             <p class="mt-4 text-center">No tienes citas programadas.</p>
         @endif
-
         <h3 class="text-xl font-semibold mt-8 mb-4">Reservar Nueva Cita</h3>
         
         <form action="{{ route('Alumno.reservarCita') }}" method="POST" class="space-y-4">
@@ -53,12 +51,11 @@
             </div>
             <div>
                 <label for="idProfesor" class="block font-medium">Seleccionar Profesor:</label>
-                <select name="nombre" class="w-full p-2 border border-gray-300 rounded" required>
+                <select name="idProfesor" class="w-full p-2 border border-gray-300 rounded" required>
                     @foreach($profesores as $profesor)
-                        <option value="{{ $profesor->nombre }}">{{ $profesor->nombre }} {{ $profesor->apellido }}</option>
+                        <option value="{{ $profesor->idProfesor }}">{{ $profesor->nombre }} {{ $profesor->apellido }}</option>
                     @endforeach
                 </select>
-
             </div>
             <div>
                 <label for="descargo" class="block font-medium">Descargo:</label>
