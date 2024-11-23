@@ -44,8 +44,13 @@
                         <tr>
                             <td>{{$i+1}}</td>
                             <td>
-                                <img class="img-fluid" src="/storage/{{ $row->imagen}}">
-                            </td>
+                                @if($row->image)
+                                    <img class="img-fluid" src="{{ asset($row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
+                                @else
+                                    <span>Sin imagen</span>
+                                @endif
+                            </td>                            
+                            
                             <td>{{$row->fechapub}}</td>
                             <td>{{$row->fechaev}}</td>
                             <td>{{$row->lugar}}</td>
