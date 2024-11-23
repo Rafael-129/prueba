@@ -11,11 +11,11 @@ class ProfesorNotasController extends Controller
 {
     public function profNotas()
     {
-        // Obtener todas las notas de los alumnos
         $notas = Notas::with(['alumno', 'curso', 'profesor'])->get();
-        return view('Profesor.ProfesorNotas', compact('notas'));
-    }
+        $alumnos = Alumno::all(); // Obtener todos los alumnos
 
+        return view('Profesor.ProfesorNotas', compact('notas', 'alumnos'));
+    }
     public function create()
     {
         // Obtener todos los alumnos y cursos
@@ -23,6 +23,18 @@ class ProfesorNotasController extends Controller
         $cursos = Cursos::all();
 
         return view('Profesor.createNota', compact('alumnos', 'cursos'));
+    }
+
+    public function index()
+    {
+        // Obtener todas las notas con sus relaciones
+        $notas = Nota::with(['alumno', 'curso'])->get();
+
+        // Obtener todos los alumnos desde la tabla 'alumno'
+        $alumnos = Alumno::all();
+
+        // Enviar las variables a la vista
+        return view('profesor.notas.index', compact('notas', 'alumnos'));
     }
 
     public function store(Request $request)

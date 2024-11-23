@@ -24,6 +24,7 @@ class Alumno extends Model
         'idUsuario'
     ];
 
+    
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'idUsuario');
