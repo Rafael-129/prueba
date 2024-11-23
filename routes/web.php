@@ -36,7 +36,7 @@ Route::get('/Notas', [NotasController::class, 'notas'])->name('Alumno.notas');
 Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas');
 
 // Rutas de la aplicación para Profesores (Intranet)
-Route::get('/ProfesorAnuncios', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
+Route::get('/anuncios_profs', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
 Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
 Route::get('/ProfesorNotas', [profesorNotasController::class, 'profNotas'])->name('Profesor.Notas');
 
