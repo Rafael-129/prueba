@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AnunciosProf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnunciosProfController extends Controller
 {
@@ -12,12 +13,9 @@ class AnunciosProfController extends Controller
      */
     public function index()
     {
-        $anuncios_profs = AnunciosProf::all(); // Cambia el nombre de la variable
-        return view('Anuncios.index', compact('anuncios_profs')); // Pasa la variable correcta
+        $anuncios_profs = AnunciosProf::all();
+        return view('Anuncios.index', compact('anuncios_profs'));
     }
-    
-    
-    
 
     /**
      * Show the form for creating a new resource.
@@ -31,31 +29,81 @@ class AnunciosProfController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // Validar los datos recibidos
+{
+    // Validar los datos recibidos
     $validatedData = $request->validate([
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'fechapub' => 'required|date',
-        'fechaev' => 'required|date',
-        'lugar' => 'required',
-        'detalle' => 'required',
-        // Añade otras validaciones según los campos de tu formulario
+        'fechaev' => 'required|date|after_or_equal:fechapub',
+        'lugar' => 'required|string|max:255',
+        'detalle' => 'required|string|max:500',
     ]);
 
-    // Crear un nuevo registro
-    AnunciosProf::create($validatedData);
+    // Crear el registro sin la imagen inicialmente
+    $anuncio = AnunciosProf::create($validatedData);
 
-    // Redirigir después de guardar
-    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito.');
+    // Verificar si se subió una imagen
+    if ($request->hasFile('image')) {
+        // Crear la carpeta 'img' si no existe
+        if (!Storage::exists('public/img')) {
+            Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
+        }
 
+        // Guardar la imagen
+        $nombre = $anuncio->id . '.' . $request->file('image')->getClientOriginalExtension();
+        $ruta = $request->file('image')->storeAs('public/img', $nombre); // Guarda en storage/app/public/img
+        $anuncio->image = 'storage/img/' . $nombre; // Guarda la ruta accesible desde public/storage
+        $anuncio->save(); // Actualiza el anuncio con la ruta de la imagen
     }
+
+    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito.');
+}
+
+
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fechapub' => 'required|date',
+            'fechaev' => 'required|date|after_or_equal:fechapub',
+            'lugar' => 'required|string|max:255',
+            'detalle' => 'required|string|max:500',
+        ]);
+
+        $anuncio = AnunciosProf::findOrFail($id);
+        $anuncio->update($validated);
+
+        // Verificar si se subió una nueva imagen
+        if ($request->hasFile('image')) {
+            // Crear la carpeta 'img' si no existe
+            if (!Storage::exists('public/img')) {
+                Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
+            }
+
+            // Eliminar la imagen anterior si existe
+            if ($anuncio->image) {
+                Storage::delete(str_replace('storage/', 'public/', $anuncio->image));
+            }
+
+            // Subir la nueva imagen
+            $nombre = $anuncio->id . '.' . $request->file('image')->getClientOriginalExtension();
+            $ruta = $request->file('image')->storeAs('public/img', $nombre); // Guarda en storage/app/public/img
+            $anuncio->image = 'storage/img/' . $nombre; // Ruta accesible desde public/storage
+            $anuncio->save(); // Actualiza el anuncio con la ruta de la imagen
+        }
+
+        return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio actualizado correctamente.');
+    }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(AnunciosProf $anunciosProf)
+    public function show($anuncios_prof)
     {
-        //
+        $anuncio = AnunciosProf::findOrFail($anuncios_prof);
+        return view('Anuncios.show', compact('anuncio'));
     }
 
     /**
@@ -63,41 +111,27 @@ class AnunciosProfController extends Controller
      */
     public function edit($id)
     {
-    $anuncios_profs = AnunciosProf::findOrFail($id);
-    return view('Anuncios.edit', compact('anuncios_profs'));
+        $anuncio = AnunciosProf::findOrFail($id);
+        return view('Anuncios.edit', compact('anuncio'));
     }
-
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-    $validated = $request->validate([
-        'image' => 'nullable|image|max:2048',
-        'fechapub' => 'required|date',
-        'fechaev' => 'required|date|after_or_equal:fechapub',
-        'lugar' => 'required|string|max:255',
-        'detalle' => 'required|string|max:500',
-    ]);
-
-    $anuncios_profs = AnunciosProf::findOrFail($id);
-    $anuncios_profs->update($validated);
-
-    if ($request->hasFile('image')) {
-        // Lógica para manejar la subida de la nueva imagen
-    }
-
-    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio actualizado correctamente');
-}
-
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AnunciosProf $anunciosProf)
+    public function destroy($id)
     {
-        $anunciosProf->delete(); // Elimina el registro del modelo
-        return redirect()->route('Anuncios.index')->with('success', 'Anuncio eliminado con éxito.');
+        $anuncio = AnunciosProf::findOrFail($id);
+
+        // Eliminar la imagen asociada si existe
+        if ($anuncio->image) {
+            Storage::delete(str_replace('storage/', 'public/', $anuncio->image));
+        }
+
+        $anuncio->delete();
+        return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio eliminado correctamente.');
     }
 }

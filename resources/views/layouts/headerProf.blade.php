@@ -75,7 +75,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('Profesor.Anuncios') }}">Anuncios</a>
+                        <a class="nav-link" href="{{ route('anuncios_profs.index') }}">Anuncios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Profesor.Citas') }}">Citas</a>

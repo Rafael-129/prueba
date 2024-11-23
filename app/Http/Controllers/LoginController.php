@@ -88,7 +88,7 @@ class LoginController extends Controller
 
             // Redirigir según el rol
             if ($usuario->idRol == 1) {
-                return redirect()->route('Profesor.Anuncios');
+                return redirect()->route('anuncios_profs.index');
             } elseif ($usuario->idRol == 2) {
                 return redirect()->route('Alumno.anuncios');
             }

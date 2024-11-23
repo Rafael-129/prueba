@@ -12,5 +12,5 @@ class Profesor extends Model
     protected $table = 'profesor';  // Nombre de la tabla
 
     // Definir los campos q
-    protected $fillable = ['nombre', 'apellido', 'DNI', 'Rol', 'paassword'];
+    protected $fillable = ['nombre', 'apellido', 'DNI', 'Rol', 'password'];
 }
