@@ -53,11 +53,12 @@
             </div>
             <div>
                 <label for="idProfesor" class="block font-medium">Seleccionar Profesor:</label>
-                <select name="idProfesor" class="w-full p-2 border border-gray-300 rounded" required>
+                <select name="nombre" class="w-full p-2 border border-gray-300 rounded" required>
                     @foreach($profesores as $profesor)
-                        <option value="{{ $profesor->idProfesor }}">{{ $profesor->nombre }} {{ $profesor->apellido }}</option>
+                        <option value="{{ $profesor->nombre }}">{{ $profesor->nombre }} {{ $profesor->apellido }}</option>
                     @endforeach
                 </select>
+
             </div>
             <div>
                 <label for="descargo" class="block font-medium">Descargo:</label>
