@@ -18,7 +18,7 @@
         <thead>
             <tr>
                 <th>Alumno</th>
-                <th>Materia</th>
+                <th>Practica</th>
                 <th>Nota</th>
                 <th>Curso</th>
                 <th>Acciones</th>

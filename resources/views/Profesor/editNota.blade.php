@@ -11,7 +11,7 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label for="materia" class="form-label">Materia</label>
+                <label for="materia" class="form-label">Practica</label>
                 <input type="text" class="form-control" id="materia" name="materia" value="{{ $nota->materia }}" required>
             </div>
 

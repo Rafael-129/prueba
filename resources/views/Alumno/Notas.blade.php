@@ -94,7 +94,7 @@
   <!-- Detalle de Curso -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header text-white bg-primary">
-      Detalle de Curso: 
+      Detalle de Curso: {{ $alumno->nombreCurso}}
     </div>
     <div class="card-body">
       <table class="table table-bordered align-middle">
