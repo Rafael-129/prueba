@@ -13,12 +13,23 @@ class CitasController extends Controller
     // Mostrar citas del alumno autenticado
     public function mostrarCitas()
     {
-        $citas = Reserva::with(['profesor', 'estadoReserva'])
-            ->where('idAlumno', auth()->user()->id)
-            ->get();
-        $profesores = Profesor::all();
-        return view('Alumno.citas', compact('citas', 'profesores'));
+    $AlumnoId = auth()->id(); // Cambiar según tu lógica de autenticación
+
+    // Obtener las citas del alumno con relaciones
+    $citas = Reserva::with(['estadoReserva', 'profesor'])
+        ->where('idAlumno', $AlumnoId)
+        ->get();
+
+    // Obtener todos los estados de las reservas
+    $estados = EstadoReserva::all();
+
+    // Obtener todos los profesores para el formulario de reserva
+    $profesores = Profesor::all();
+
+    // Pasar las variables necesarias a la vista
+    return view('Alumno.Citas', compact('citas', 'estados', 'profesores'));
     }
+
     // Reservar cita
     public function reservarCita(Request $request)
     {
@@ -39,6 +50,7 @@ class CitasController extends Controller
             'descargo' => $request->descargo,
         ]);
         return back()->with('success', 'Cita reservada con éxito.');
+        
     }
 }
 

@@ -1,5 +1,4 @@
-@extends('layouts.headerIntra')
-
+ @extends('layouts.headerIntra')
 
 @section('title', 'Mis Citas')
 
@@ -10,7 +9,11 @@
     <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         <h1 class="text-3xl font-bold mb-6 text-center">Mis Citas</h1>
         <h2 class="text-2xl font-semibold mb-4">Citas Programadas</h2>
-        @if($citas->isNotEmpty())
+        @if(session('success'))
+            <div class="bg-green-100 text-green-700 px-4 py-2 mb-4 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
             <table class="table-auto w-full border-collapse border border-gray-300 mb-6">
                 <thead>
                     <tr>
@@ -25,17 +28,14 @@
                         <tr class="bg-gray-100 hover:bg-gray-200">
                             <td class="px-4 py-2 border border-gray-200">{{ $cita->fechaReserva }}</td>
                             <td class="px-4 py-2 border border-gray-200">{{ $cita->horaReserva }}</td>
-                            <td class="px-4 py-2 border border-gray-200">{{ $cita->nombre }} {{ $cita->apellido }}</td>
-                            <td class="px-4 py-2 border border-gray-200">{{ $cita->estado }}</td>
+                            <td class="px-4 py-2 border border-gray-200">{{ $cita->profesor->nombre }} {{ $cita->profesor->apellido }}</td>
+                            <td class="px-4 py-2 border border-gray-200">{{ $cita->estadoReserva->estado}}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @else
-            <p class="mt-4 text-center">No tienes citas programadas.</p>
-        @endif
+
         <h3 class="text-xl font-semibold mt-8 mb-4">Reservar Nueva Cita</h3>
-        
         <form action="{{ route('Alumno.reservarCita') }}" method="POST" class="space-y-4">
             @csrf
             <div>
