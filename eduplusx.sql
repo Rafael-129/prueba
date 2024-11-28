@@ -1,4 +1,4 @@
-CREATE DATABASE eduplusx;
+eduplusxCREATE DATABASE eduplusx;
 USE eduplusx;
 
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
@@ -172,7 +172,6 @@ DROP TABLE IF EXISTS `dia`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dia` (
   `idDia` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`idDia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -195,8 +194,6 @@ DROP TABLE IF EXISTS `disponibilidadprof`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `disponibilidadprof` (
   `idDisponibilidadProf` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `horaInicio` time NOT NULL,
-  `horaFinal` time NOT NULL,
   `idDia` int(10) unsigned NOT NULL,
   `idProfesor` int(10) unsigned NOT NULL,
   PRIMARY KEY (`idDisponibilidadProf`),

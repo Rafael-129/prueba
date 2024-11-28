@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-
+use App\Models\Dia;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use App\Models\Profesor;
+use App\Models\DisponibilidadProfesor;
+
 use App\Models\EstadoReserva; // Asegúrate de importar el modelo EstadoReserva
 
 class ProfesorCitasController extends Controller
@@ -24,7 +27,7 @@ class ProfesorCitasController extends Controller
     }
 
     public function actualizarEstado(Request $request, $idReservas)
-{
+    {
     // Buscar la cita por ID
     $cita = Reserva::findOrFail($idReservas);
 
@@ -40,6 +43,38 @@ class ProfesorCitasController extends Controller
     $cita->save();
 
     return redirect()->route('Profesor.Citas')->with('success', 'Estado actualizado correctamente.');
-}
+    }
 
+    public function guardarDisponibilidad(Request $request)
+    {
+        // Validar los días seleccionados
+        $request->validate([
+            'diasNoDisponibles' => 'required|array|min:1',
+            'diasNoDisponibles.*' => 'integer|min:1|max:31',
+        ]);
+    
+        // Obtener el ID del profesor autenticado
+        $profesorId = auth()->id();
+    
+        // Verificar que el profesor exista
+        $profesor = Profesor::find($profesorId);
+        if (!$profesor) {
+            return back()->with('error', 'El profesor no existe.');
+        }
+    
+        // Guardar los días seleccionados
+        foreach ($request->diasNoDisponibles as $dia) {
+            // Verificar si el día ya existe en la tabla `dia`
+            $diaExistente = Dia::firstOrCreate(['MroDia' => $dia]);
+    
+            // Crear o actualizar la disponibilidad del profesor
+            DisponibilidadProfesor::updateOrCreate(
+                ['idProfesor' => $profesorId, 'idDia' => $diaExistente->idDia],
+                ['idProfesor' => $profesorId, 'idDia' => $diaExistente->idDia]
+            );
+        }
+    
+        return back()->with('success', 'Días no disponibles guardados correctamente.');
+    }
+    
 }
