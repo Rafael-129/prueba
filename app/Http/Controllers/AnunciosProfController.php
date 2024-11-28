@@ -50,7 +50,6 @@ class AnunciosProfController extends Controller
      */
     public function store(Request $request)
 {
-   
     // Validar los datos recibidos
     $validatedData = $request->validate([
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -60,41 +59,24 @@ class AnunciosProfController extends Controller
         'detalle' => 'required|string|max:500',
     ]);
 
-    // Obtener el ID del profesor autenticado
-    $profesor = Profesor::where('idUsuario', Auth::id())->first();
-  
-
-    // Verificar si se ha encontrado el profesor
-    if (!$profesor) {
-        return redirect()->back()->withErrors('No se pudo encontrar el profesor asociado a este usuario.');
-    }
-
-    // Debug para verificar si $profesor->idProfesor existe
-   // dd($profesor->idProfesor); // Aquí se mostrará el valor de idProfesor
-
-    // Incluir el idProfesor en los datos validados para la inserción
-    $validatedData['idProfesor'] = $profesor->idProfesor;
-
-    // Crear el anuncio, incluyendo automáticamente el idProfesor
-    $anuncio = AnunciosProf::create($validatedData);
-
-    // Verificar si se subió una imagen
+    // Subir la imagen si está presente
     if ($request->hasFile('image')) {
-        // Crear la carpeta 'img' si no existe
-        if (!Storage::exists('public/img')) {
-            Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
-        }
-
-        // Guardar la imagen
-        $path = $request->file('image')->store('public/img');
-
-        // Actualizar el anuncio con la ruta de la imagen
-        $anuncio->image = $path;
-        $anuncio->save();
+        $imagePath = $request->file('image')->store('anuncios', 'public');
+    } else {
+        $imagePath = null; // Si no se sube imagen, dejar el valor como null
     }
 
-    // Redirigir al usuario con un mensaje de éxito
-    return redirect()->route('anuncios.index')->with('success', 'Anuncio creado con éxito.');
+    // Crear el nuevo anuncio
+    AnunciosProf::create([
+        'image' => $imagePath,  // Ruta de la imagen si se subió
+        'fechapub' => $validatedData['fechapub'],
+        'fechaev' => $validatedData['fechaev'],
+        'lugar' => $validatedData['lugar'],
+        'detalle' => $validatedData['detalle'],
+    ]);
+
+    // Redirigir con mensaje de éxito
+    return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito');
 }
 
 
