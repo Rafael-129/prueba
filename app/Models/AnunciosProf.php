@@ -10,11 +10,11 @@ class AnunciosProf extends Model
     use HasFactory;
 
     // Campos que se pueden asignar masivamente
-    protected $fillable = ['idProfesor', 'image', 'fechapub', 'fechaev', 'lugar', 'detalle'];
+    protected $fillable = ['image', 'fechapub', 'fechaev', 'lugar', 'detalle'];
 
-    // Relación inversa con el modelo Profesor
-    public function profesor()
-    {
-        return $this->belongsTo(Profesor::class, 'idProfesor', 'idProfesor');
-    }
+    // Si no necesitas la relación con la tabla profesor, elimina este método:
+    // public function profesor()
+    // {
+    //     return $this->belongsTo(Profesor::class, 'idProfesor', 'idProfesor');
+    // }
 }
