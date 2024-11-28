@@ -12,6 +12,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    public function profesor()
+    {
+        return $this->hasOne(Profesor::class, 'idUsuario');
+    }
+
     use HasApiTokens;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
