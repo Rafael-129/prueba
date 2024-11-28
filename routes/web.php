@@ -55,8 +55,7 @@ Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Cit
 Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');
 Route::get('/ProfesorCitas', [ProfesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 Route::put('/profesor/citas/{id}', [ProfesorCitasController::class, 'actualizarEstado'])->name('profesor.citas.update');
-
-// Otros recursos protegidos
+Route::post('/guardar-disponibilidad', [ProfesorCitasController::class, 'guardarDisponibilidad'])->name('profesor.disponibilidad.guardar');
 
 
 // Rutas individuales para AnunciosProf
