@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnunciosProf;
+use App\Models\Profesor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class AnunciosProfController extends Controller
 {
@@ -47,35 +49,55 @@ class AnunciosProfController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // Validar los datos recibidos
-        $validatedData = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'fechapub' => 'required|date',
-            'fechaev' => 'required|date|after_or_equal:fechapub',
-            'lugar' => 'required|string|max:255',
-            'detalle' => 'required|string|max:500',
-        ]);
+{
+   
+    // Validar los datos recibidos
+    $validatedData = $request->validate([
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'fechapub' => 'required|date',
+        'fechaev' => 'required|date|after_or_equal:fechapub',
+        'lugar' => 'required|string|max:255',
+        'detalle' => 'required|string|max:500',
+    ]);
 
-        // Crear el registro sin la imagen inicialmente
-        $anuncio = AnunciosProf::create($validatedData);
+    // Obtener el ID del profesor autenticado
+    $profesor = Profesor::where('idUsuario', Auth::id())->first();
+  
 
-        // Verificar si se subió una imagen
-        if ($request->hasFile('image')) {
-            // Crear la carpeta 'img' si no existe
-            if (!Storage::exists('public/img')) {
-                Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
-            }
+    // Verificar si se ha encontrado el profesor
+    if (!$profesor) {
+        return redirect()->back()->withErrors('No se pudo encontrar el profesor asociado a este usuario.');
+    }
 
-            // Guardar la imagen
-            $nombre = $anuncio->id . '.' . $request->file('image')->getClientOriginalExtension();
-            $ruta = $request->file('image')->storeAs('public/img', $nombre); // Guarda en storage/app/public/img
-            $anuncio->image = 'img/' . $nombre; // Guarda la ruta relativa
-            $anuncio->save(); // Actualiza el anuncio con la ruta de la imagen
+    // Debug para verificar si $profesor->idProfesor existe
+   // dd($profesor->idProfesor); // Aquí se mostrará el valor de idProfesor
+
+    // Incluir el idProfesor en los datos validados para la inserción
+    $validatedData['idProfesor'] = $profesor->idProfesor;
+
+    // Crear el anuncio, incluyendo automáticamente el idProfesor
+    $anuncio = AnunciosProf::create($validatedData);
+
+    // Verificar si se subió una imagen
+    if ($request->hasFile('image')) {
+        // Crear la carpeta 'img' si no existe
+        if (!Storage::exists('public/img')) {
+            Storage::makeDirectory('public/img'); // Crea la carpeta automáticamente
         }
 
-        return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito.');
+        // Guardar la imagen
+        $path = $request->file('image')->store('public/img');
+
+        // Actualizar el anuncio con la ruta de la imagen
+        $anuncio->image = $path;
+        $anuncio->save();
     }
+
+    // Redirigir al usuario con un mensaje de éxito
+    return redirect()->route('anuncios.index')->with('success', 'Anuncio creado con éxito.');
+}
+
+
 
 
 
