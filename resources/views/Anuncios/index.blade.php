@@ -11,7 +11,7 @@
 </div>
 
 @if($msj = Session::get('success'))
-    <div class="row">
+    <div class="row" id="alerta">
         <div class="col-md-4 offset-md-4">
             <div class="alert alert-success">
                 <p><i class="fa-solid fa-check"></i> {{ $msj }}</p>
@@ -100,4 +100,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    @vite('resources/js/Anuncios/index.js')
 @endsection
