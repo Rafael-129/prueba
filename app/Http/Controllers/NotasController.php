@@ -18,11 +18,30 @@ class NotasController extends Controller
             return redirect()->route('alumnos.index')->with('error', 'No se encontró el alumno asociado.');
         }
 
-        // Obtener todos los cursos asignados al alumno a través de las notas
-        $notas = $alumno->notas; 
-        $curso = $alumno->curso; 
-        $cursos = Cursos::all(); 
+        // Obtener todas las notas y cursos
+        $notas = $alumno->notas;
+        $curso = $alumno->curso;
+        $cursos = Cursos::all();
 
         return view('Alumno.notas', compact('alumno', 'notas', 'curso', 'cursos'));
     }
+
+public function detallesCurso($idCurso)
+{
+    // Obtener el alumno asociado al usuario autenticado
+    $alumno = Alumno::with('notas')->where('idUsuario', auth()->id())->first();
+
+    if (!$alumno) {
+        return redirect()->route('alumnos.index')->with('error', 'No se encontró el alumno asociado.');
+    }
+
+    // Obtener el curso seleccionado y las notas asociadas a ese curso para el alumno
+    $cursoSeleccionado = Cursos::findOrFail($idCurso);
+    $notas = $alumno->notas()->where('idCursos', $idCurso)->get();
+    $cursos = Cursos::all(); // Asegúrate de obtener todos los cursos si es necesario
+
+    return view('Alumno.notas', compact('alumno', 'cursoSeleccionado', 'notas', 'cursos'));
+}
+
+
 }

@@ -62,59 +62,80 @@
   </div>
 
   <!-- Relación de Cursos -->
-  <div class="card mb-4 shadow-sm">
-    <div class="card-header text-white bg-primary">
-        Relación de Cursos
-    </div>
-    <div class="card-body">
-        <table class="table table-bordered align-middle">
-            <thead class="table-primary text-center">
-                <tr>
-                    <th>Sel.</th>
-                    <th>Periodo</th>
-                    <th>Código</th>
-                    <th>Curso</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($cursos as $curso)
-                    <tr>
-                        <td class="text-center"><input type="radio" name="curso" value="{{ $curso->idCursos }}"></td>
-                        <td>{{ $alumno->fecha }}</td>
-                        <td>{{ $curso->idCursos }}</td> 
-                        <td>{{ $curso->nombreCurso ?? 'Sin curso asignado' }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <button class="btn btn-danger mt-3 w-100">Consultar Detalle</button>
-    </div>
-</div>
-
-  <!-- Detalle de Curso -->
-  <div class="card mb-4 shadow-sm">
-    <div class="card-header text-white bg-primary">
-      Detalle de Curso: {{ $alumno->nombreCurso}}
-    </div>
-    <div class="card-body">
-      <table class="table table-bordered align-middle">
-        <thead class="table-primary text-center">
+<div class="card mb-4 shadow-sm">
+  <div class="card-header text-white bg-primary">
+    Relación de Cursos
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>Sel.</th>
+          <th>Código</th>
+          <th>Curso</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($cursos as $curso)
           <tr>
-            <th>Examen</th>
-            <th>Nota</th>
+            <td class="text-center"><input type="radio" name="curso" value="{{ $curso->idCursos }}"></td>
+            <td>{{ $curso->idCursos }}</td>
+            <td>{{ $curso->nombreCurso ?? 'Sin curso asignado' }}</td>
           </tr>
-        </thead>
-        <tbody>
-          @foreach($notas as $nota)
-            <tr>
-              <td>{{ $nota->materia }}</td>
-              <td>{{ $nota->nota }}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
-      <p class="text-center fw-bold fs-5 mt-3">Promedio: {{ $notas->avg('nota') }}</p>
-    </div>
+        @endforeach
+      </tbody>
+    </table>
+
+    <!-- Formulario para enviar el curso seleccionado -->
+    <form id="detalleCursoForm" action="{{ route('Alumno.notas.detalles', ['idCurso' => ':idCurso']) }}" method="GET">
+      <input type="hidden" id="cursoSeleccionado" name="idCurso">
+      <button type="submit" class="btn btn-danger mt-3 w-100">Consultar Detalle</button>
+    </form>
   </div>
 </div>
+
+<!-- Script para manejar la selección del curso -->
+<script>
+  document.querySelector('.btn-danger').addEventListener('click', function(event) {
+    const selectedCourse = document.querySelector('input[name="curso"]:checked');
+    if (selectedCourse) {
+      const form = document.getElementById('detalleCursoForm');
+      // Actualizar la acción del formulario con el ID del curso seleccionado
+      form.action = form.action.replace(':idCurso', selectedCourse.value);
+    } else {
+      alert('Por favor, seleccione un curso.');
+      event.preventDefault(); // Evita el envío del formulario si no se selecciona un curso
+    }
+  });
+</script>
+
+
+  <!-- Detalle de Curso -->
+@if(isset($cursoSeleccionado))
+<div class="card mb-4 shadow-sm">
+  <div class="card-header text-white bg-primary">
+    Detalle de Curso: {{ $cursoSeleccionado->nombreCurso }}
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>Examen</th>
+          <th>Nota</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($notas as $nota)
+          <tr>
+            <td>{{ $nota->materia }}</td>
+            <td>{{ $nota->nota }}</td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <p class="text-center fw-bold fs-5 mt-3">Promedio: {{ $notas->avg('nota') }}</p>
+  </div>
+</div>
+@endif
+
 @endsection
