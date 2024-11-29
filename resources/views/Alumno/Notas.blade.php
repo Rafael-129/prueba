@@ -90,7 +90,6 @@
 
       <!-- Formulario para enviar el curso seleccionado -->
       <form id="detalleCursoForm" action="{{ route('Alumno.notas.detalles', ['idCurso' => ':idCurso']) }}" method="GET">
-        <input type="hidden" id="cursoSeleccionado" name="idCurso">
         <button type="submit" class="btn btn-danger mt-3 w-100">Consultar Detalle</button>
       </form>
     </div>
