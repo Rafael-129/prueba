@@ -68,6 +68,7 @@ Route::put('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'u
 Route::delete('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'destroy'])->name('anuncios_profs.destroy');
 
 
+
 // Ruta para cerrar sesión
 Route::post('/logout', function () {
     Auth::logout();

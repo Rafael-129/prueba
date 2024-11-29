@@ -19,7 +19,7 @@ class Reserva extends Model
 
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
-        'fechaReserva', 'horaReserva', 'idProfesor', 'idAlumno', 'idEstadoReserva', 'descargo',
+        'fechaReserva', 'horaReserva', 'idProfesor', 'idAlumno', 'idEstadoReserva', 'descargo'
     ];
 
     // Relación con el Alumno
@@ -39,4 +39,5 @@ class Reserva extends Model
     {
         return $this->belongsTo(EstadoReserva::class, 'idEstadoReserva');
     }
+
 }

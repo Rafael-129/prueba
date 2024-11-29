@@ -64,32 +64,32 @@
   <!-- Relación de Cursos -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header text-white bg-primary">
-      Relación de Cursos
+        Relación de Cursos
     </div>
     <div class="card-body">
-      <table class="table table-bordered align-middle">
-        <thead class="table-primary text-center">
-          <tr>
-            <th>Sel.</th>
-            <th>Periodo</th>
-            <th>Código</th>
-            <th>Curso</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach($alumno->notas as $nota)
-            <tr>
-              <td class="text-center"><input type="radio" name="curso"></td>
-              <td>{{ $alumno->fecha }}</td>
-              <td>{{ $alumno->idAlumno }}</td>
-              <td>{{ $nota->curso->nombreCurso ?? 'Sin curso asignado' }}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
-      <button class="btn btn-danger mt-3 w-100">Consultar Detalle</button>
+        <table class="table table-bordered align-middle">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Sel.</th>
+                    <th>Periodo</th>
+                    <th>Código</th>
+                    <th>Curso</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($cursos as $curso)
+                    <tr>
+                        <td class="text-center"><input type="radio" name="curso" value="{{ $curso->idCursos }}"></td>
+                        <td>{{ $alumno->fecha }}</td>
+                        <td>{{ $curso->idCursos }}</td> 
+                        <td>{{ $curso->nombreCurso ?? 'Sin curso asignado' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <button class="btn btn-danger mt-3 w-100">Consultar Detalle</button>
     </div>
-  </div>
+</div>
 
   <!-- Detalle de Curso -->
   <div class="card mb-4 shadow-sm">
