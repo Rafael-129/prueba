@@ -17,7 +17,7 @@ class Profesor extends Model
     // Relación uno a muchos con anuncios
     public function anuncios()
     {
-        return $this->hasMany(AnunciosProf::class, 'idProfesor', 'idProfesor');
+        return $this->hasMany(AnunciosProf::class, 'idProfesor');
     }
 
     public function usuario()

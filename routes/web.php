@@ -30,7 +30,8 @@ Route::post('/IniSesion', [LoginController::class, 'IniSesion'])->name('IniSesio
 Route::post('/Registrar', [LoginController::class, 'registrar'])->name('registrar');
 
 // Rutas de la aplicación para Alumnos (Intraner)
-Route::get('/Anuncios', [AnunciosController::class, 'anuncios'])->name('Alumno.anuncios');
+// Asegúrate de que esta ruta esté definida correctamente
+Route::get('/anuncios', [AnunciosController::class, 'anuncios'])->name('Alumno.anuncios');
 Route::get('/Horarios', [HorariosController::class, 'horarios'])->name('Alumno.horarios');
 Route::get('/Notas', [NotasController::class, 'notas'])->name('Alumno.notas');
 Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas');
@@ -66,8 +67,6 @@ Route::get('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 's
 Route::get('/anuncios_profs/{anuncios_prof}/edit', [AnunciosProfController::class, 'edit'])->name('anuncios_profs.edit');
 Route::put('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'update'])->name('anuncios_profs.update');
 Route::delete('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'destroy'])->name('anuncios_profs.destroy');
-
-Route::get('/Notas/curso/{idCurso}', [NotasController::class, 'detallesCurso'])->name('Alumno.notas.detalles');
 
 
 // Ruta para cerrar sesión

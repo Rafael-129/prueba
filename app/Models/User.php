@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,19 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-
-    public function profesor()
-    {
-        return $this->hasOne(Profesor::class, 'idUsuario');
-    }
-
-    use HasApiTokens;
-
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -32,9 +19,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'name', 
+        'email', 
         'password',
+        'idRol', // Aquí agregas el campo idRol
     ];
 
     /**
@@ -70,4 +58,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relación con el modelo Profesor
+    public function profesor()
+    {
+        return $this->hasOne(Profesor::class, 'idUsuario');
+    }
+
+    // Si existe un modelo Role, puedes agregar una relación:
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'idRol'); // Relacionamos con la tabla 'rol' usando 'idRol' como la clave foránea
+    }
+    
 }
