@@ -68,6 +68,7 @@ Route::get('/anuncios_profs/{anuncios_prof}/edit', [AnunciosProfController::clas
 Route::put('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'update'])->name('anuncios_profs.update');
 Route::delete('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'destroy'])->name('anuncios_profs.destroy');
 
+Route::get('/Notas/curso/{idCurso}', [NotasController::class, 'detallesCurso'])->name('Alumno.notas.detalles');
 
 // Ruta para cerrar sesión
 Route::post('/logout', function () {
