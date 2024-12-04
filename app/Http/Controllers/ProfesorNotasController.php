@@ -14,61 +14,74 @@ class ProfesorNotasController extends Controller
 
     // Método para mostrar las notas de los alumnos del mismo grado del profesor
     public function profNotas(Request $request)
-{
-    // Obtener el usuario autenticado
-    $usuario = auth()->user();
+    {
+        // Obtener el usuario autenticado
+        $usuario = auth()->user();
 
-    // Verificar si el usuario tiene el rol de 'Profesor' (idRol = 1)
-    if ($usuario->idRol !== 1) {
-        // Si el usuario no tiene rol de profesor, redirigir a otro lugar o mostrar mensaje de error
-        return redirect()->route('home')->with('error', 'Acceso no autorizado. Solo los profesores pueden ver esta página.');
+        // Verificar si el usuario tiene el rol de 'Profesor' (idRol = 1)
+        if ($usuario->idRol !== 1) {
+            // Si el usuario no tiene rol de profesor, redirigir a otro lugar o mostrar mensaje de error
+            return redirect()->route('home')->with('error', 'Acceso no autorizado. Solo los profesores pueden ver esta página.');
+        }
+
+        // Obtener el profesor asociado al usuario
+        $profesor = $usuario->profesor;
+        if (!$profesor) {
+            return redirect()->route('Profesor.Citas')->with('error', 'No se encontró un profesor asociado a tu cuenta.');
+        }
+
+        // Obtener el grado del profesor
+        $gradoId = $profesor->grado ? $profesor->grado->idGrado : null;
+
+        if ($gradoId === null) {
+            return redirect()->route('Profesor.Citas')->with('error', 'El profesor no tiene un grado asignado.');
+        }
+
+        // Obtener los alumnos del mismo grado que el profesor
+        $alumnos = Alumno::where('idGrado', $gradoId)->get();
+
+        // Filtrar las notas por alumno si hay un filtro seleccionado
+        $alumnoId = $request->get('alumno_id'); 
+        if ($alumnoId) {
+            $notas = Notas::with(['alumno', 'curso', 'profesor'])
+                ->where('idAlumnos', $alumnoId)
+                ->get();
+        } else {
+            // Si no hay filtro, obtener las notas de los alumnos del grado del profesor
+            $notas = Notas::with(['alumno', 'curso', 'profesor'])
+                ->whereHas('alumno', function ($query) use ($gradoId) {
+                    $query->where('idGrado', $gradoId);
+                })->get();
+        }
+
+        return view('Profesor.ProfesorNotas', compact('notas', 'alumnos'));
     }
 
-    // Obtener el profesor asociado al usuario
-    $profesor = $usuario->profesor;
-    if (!$profesor) {
-        return redirect()->route('Profesor.Citas')->with('error', 'No se encontró un profesor asociado a tu cuenta.');
-    }
-
-    // Obtener el grado del profesor
-    $gradoId = $profesor->grado ? $profesor->grado->idGrado : null;
-
-    if ($gradoId === null) {
-        return redirect()->route('Profesor.Citas')->with('error', 'El profesor no tiene un grado asignado.');
-    }
-
-    // Obtener los alumnos del mismo grado que el profesor
-    $alumnos = Alumno::where('idGrado', $gradoId)->get();
-
-    // Filtrar las notas por alumno si hay un filtro seleccionado
-    $alumnoId = $request->get('alumno_id'); 
-    if ($alumnoId) {
-        $notas = Notas::with(['alumno', 'curso', 'profesor'])
-            ->where('idAlumnos', $alumnoId)
-            ->get();
-    } else {
-        // Si no hay filtro, obtener las notas de los alumnos del grado del profesor
-        $notas = Notas::with(['alumno', 'curso', 'profesor'])
-            ->whereHas('alumno', function ($query) use ($gradoId) {
-                $query->where('idGrado', $gradoId);
-            })->get();
-    }
-
-    return view('Profesor.ProfesorNotas', compact('notas', 'alumnos'));
-}
-
-    
 
     // Método para crear una nueva nota
     public function create()
     {
-        // Obtener todos los alumnos y cursos
-        $alumnos = Alumno::all();
+        // Obtener el profesor asociado al usuario autenticado
+        $usuario = auth()->user();
+        $profesor = $usuario->profesor;
+
+        if (!$profesor) {
+            return redirect()->route('Profesor.Citas')->with('error', 'No se encontró un profesor asociado a tu cuenta.');
+        }
+
+        // Obtener el grado del profesor
+        $gradoId = $profesor->idGrado;
+
+        // Obtener los alumnos del mismo grado que el profesor
+        $alumnos = Alumno::where('idGrado', $gradoId)->get();
+
+        // Obtener todos los cursos
         $cursos = Cursos::all();
 
-        // Retornar la vista para agregar la nota
+        // Retornar la vista con los alumnos y cursos
         return view('Profesor.createNota', compact('alumnos', 'cursos'));
     }
+
 
     // Método para listar todas las notas de los alumnos
     public function index(Request $request)
