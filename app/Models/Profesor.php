@@ -24,4 +24,10 @@ class Profesor extends Model
     {
         return $this->belongsTo(User::class, 'idUsuario');  // Asegúrate de que el nombre de la relación es correcto
     }
+
+     // Relación con grado
+     public function grado()
+     {
+         return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
+     }
 }

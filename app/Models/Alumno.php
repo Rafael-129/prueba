@@ -41,7 +41,7 @@ class Alumno extends Model
     public function curso()
     {
         // Un alumno está relacionado con un curso por nombre
-        return $this->belongsTo(Cursos::class, 'curso', 'nombreCurso');
+        return $this->belongsTo(Cursos::class, 'idCursos', 'nombreCurso');
     }
 
     // Relación con EstadoReserva
@@ -49,4 +49,10 @@ class Alumno extends Model
     {
         return $this->belongsTo(EstadoReserva::class, 'idEstadoReserva', 'idEstadoReserva');
     }
+
+    public function grado()
+{
+    // Corregimos la relación con el campo `idGrado`
+    return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
+}
 }

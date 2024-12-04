@@ -29,7 +29,7 @@
         <thead>
             <tr>
                 <th>Alumno</th>
-                <th>Practica</th>
+                <th>Práctica</th>
                 <th>Nota</th>
                 <th>Curso</th>
                 <th>Acciones</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
             @foreach($notas as $nota)
-                <tr class="nota-row" data-alumno-id="{{ $nota->alumno->idAlumno }}">
+                <tr>
                     <td>{{ $nota->alumno->nombre }} {{ $nota->alumno->apellido }}</td>
                     <td>{{ $nota->materia }}</td>
                     <td>{{ $nota->nota }}</td>
@@ -55,5 +55,4 @@
         </tbody>
     </table>
 </div>
-
 @endsection

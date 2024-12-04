@@ -26,5 +26,10 @@ class Usuario extends Authenticatable
     {
         return $this->belongsTo(Rol::class, 'idRol', 'idRol');
     }
+
+    public function profesor()
+    {
+        return $this->hasOne(Profesor::class, 'idUsuario', 'idUsuario');
+    }
 }
 
