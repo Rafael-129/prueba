@@ -9,13 +9,28 @@ use Illuminate\Http\Request;
 
 class ProfesorNotasController extends Controller
 {
-    public function profNotas()
+    public function profNotas(Request $request)
     {
-        $notas = Notas::with(['alumno', 'curso', 'profesor'])->get();
-        $alumnos = Alumno::all(); // Obtener todos los alumnos
+        // Obtener el alumno asociado al filtro (si está presente)
+        $alumnoId = $request->get('alumno_id');
 
+        // Si hay un alumno seleccionado, filtramos las notas por alumno
+        if ($alumnoId) {
+            $notas = Notas::with(['alumno', 'curso', 'profesor'])
+                ->where('idAlumnos', $alumnoId) // Filtrar por el id del alumno
+                ->get();
+        } else {
+            // Si no hay filtro, obtenemos todas las notas
+            $notas = Notas::with(['alumno', 'curso', 'profesor'])->get();
+        }
+
+        // Obtener todos los alumnos para la lista del filtro
+        $alumnos = Alumno::all();
+
+        // Retornar la vista con las notas y los alumnos
         return view('Profesor.ProfesorNotas', compact('notas', 'alumnos'));
     }
+
     public function create()
     {
         // Obtener todos los alumnos y cursos

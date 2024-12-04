@@ -55,7 +55,7 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Centra el contenido verticalmente si es necesario */
+        justify-content: center;
     }
 
     /* Pie de Página */
@@ -125,7 +125,7 @@
     </nav>
 
     <!-- Contenido Principal -->
-    <div class="contenido flex-grow-1">
+    <div class="contenido">
         @yield('content') 
     </div>
     
