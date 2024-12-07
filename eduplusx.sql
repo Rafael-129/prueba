@@ -1,4 +1,4 @@
-eduplusxCREATE DATABASE eduplusx;
+CREATE DATABASE eduplusx;
 USE eduplusx;
 
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
@@ -422,7 +422,7 @@ CREATE TABLE `usuario` (
   `DNI` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `idRol` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`idUsuario`),
+  PRIMARY KEY (`idUsuario`),phpmyadmin
   KEY `idRol` (`idRol`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -445,5 +445,24 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- Crear tabla `dia`
+ALTER TABLE disponibilidadprof DROP FOREIGN KEY disponibilidadprof_ibfk_1;
+ALTER TABLE disponibilidadprof DROP FOREIGN KEY disponibilidadprof_ibfk_2;
 
--- Dump completed on 2024-11-14 16:37:29
+ALTER TABLE disponibilidadprof
+ADD CONSTRAINT disponibilidadprof_ibfk_1
+FOREIGN KEY (idDia) REFERENCES dia(idDia) ON DELETE CASCADE,
+ADD CONSTRAINT disponibilidadprof_ibfk_2
+FOREIGN KEY (idProfesor) REFERENCES profesor(idProfesor) ON DELETE CASCADE;
+ALTER TABLE `disponibilidadprof`
+ADD COLUMN `fecha` DATE NOT NULL;
+ALTER TABLE disponibilidadprof MODIFY COLUMN idDia INT(10) UNSIGNED NULL;
+ALTER TABLE disponibilidadprof DROP FOREIGN KEY disponibilidadprof_ibfk_1;
+ALTER TABLE disponibilidadprof DROP INDEX idDia;
+ALTER TABLE disponibilidadprof DROP COLUMN idDia;
+
+
+
+
+
+

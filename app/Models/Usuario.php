@@ -46,4 +46,8 @@ class Usuario extends Authenticatable
             'email_verified_at' => 'datetime', // Si decides incluir verificación de email
         ];
     }
+    public function profesor()
+    {
+        return $this->hasOne(Profesor::class, 'idUsuario'); // La relación debe coincidir con la clave foránea
+    }
 }

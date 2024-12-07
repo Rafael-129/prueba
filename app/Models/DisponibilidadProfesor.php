@@ -8,29 +8,24 @@ class DisponibilidadProfesor extends Model
 {
     use HasFactory;
 
-    // Definir el nombre de la tabla
-    protected $table = 'disponibilidadprof';
+    // Definir la tabla en la base de datos
+    protected $table = 'disponibilidadprof';  // Nombre de la tabla en la base de datos
 
     // Definir la clave primaria
-    protected $primaryKey = 'idDisponibilidadProf';
+    protected $primaryKey = 'idDisponibilidadProf';  // Si la clave primaria no es "id", especificar el nombre de la columna
 
-    // Indicar que no se manejan timestamps automáticamente
-    public $timestamps = false;
+    // Deshabilitar los timestamps automáticos
+    public $timestamps = false;  // Si no estás usando timestamps, puedes dejarlo como false
 
-    // Atributos que se pueden asignar masivamente
+    // Columnas que pueden ser asignadas masivamente
     protected $fillable = [
-        'idProfesor', 'idDia',
+        'idProfesor', 'fecha',
     ];
 
-    // Relación con el Profesor
+    // Relación con el modelo Profesor
     public function profesor()
     {
-        return $this->belongsTo(Profesor::class, 'idProfesor');
-    }
-
-    // Relación con el Día
-    public function dia()
-    {
-        return $this->belongsTo(Dia::class, 'idDia');
+        return $this->belongsTo(Profesor::class, 'idProfesor');  // Relación con el modelo Profesor
     }
 }
+
