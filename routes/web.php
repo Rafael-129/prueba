@@ -56,7 +56,9 @@ Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Cit
 Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');
 Route::get('/ProfesorCitas', [ProfesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 Route::put('/profesor/citas/{id}', [ProfesorCitasController::class, 'actualizarEstado'])->name('profesor.citas.update');
-Route::post('/guardar-disponibilidad', [ProfesorCitasController::class, 'guardarDisponibilidad'])->name('profesor.disponibilidad.guardar');
+//...
+Route::post('/guardar-dias', [ProfesorCitasController::class, 'storeDiasNoDisponibles'])->name('guardar.dias');
+
 
 
 // Rutas individuales para AnunciosProf
@@ -68,6 +70,7 @@ Route::get('/anuncios_profs/{anuncios_prof}/edit', [AnunciosProfController::clas
 Route::put('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'update'])->name('anuncios_profs.update');
 Route::delete('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class, 'destroy'])->name('anuncios_profs.destroy');
 
+Route::get('/Notas/curso/{idCurso}', [NotasController::class, 'detallesCurso'])->name('Alumno.notas.detalles');
 
 // Ruta para cerrar sesión
 Route::post('/logout', function () {

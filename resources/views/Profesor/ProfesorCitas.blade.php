@@ -4,6 +4,8 @@
 
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
 
 <div class="container mx-auto p-4">
     @if(session('success'))
@@ -18,29 +20,125 @@
         </div>
     @endif
 
-    <!-- Registrar Días No Disponibles -->
-    <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-center">Registrar Días No Disponibles</h2>
-        <form action="{{ route('profesor.disponibilidad.guardar') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="diasNoDisponibles" class="block text-sm font-medium text-gray-700">Seleccione los días no disponibles:</label>
-                <div class="grid grid-cols-4 gap-4 mt-2">
-                    @for ($i = 1; $i <= 31; $i++)
-                        <div class="flex items-center">
-                            <label class="flex items-center">
-                                <input type="checkbox" name="diasNoDisponibles[]" value="{{ $i }}"
-                                    {{ isset($diasNoDisponibles) && in_array($i, $diasNoDisponibles) ? 'checked' : '' }}
-                                    class="form-checkbox text-blue-600">
-                                <span class="ml-2 text-sm">Día {{ $i }}</span>
-                            </label>
-                        </div>
-                    @endfor
-                </div>
+
+    <style>
+    #calendar {
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 0.8rem; /* Ajustar el tamaño del texto */
+    }
+    </style>
+    <div class="container mt-5">
+        <h1 class="text-2xl font-bold mb-4 text-center">Disponibilidad del Profesor</h1>
+        <button id="showCalendarButton" class="btn btn-primary mb-3">Seleccionar tus días no disponibles</button>
+        
+        <!-- Sección del calendario (invisible inicialmente) -->
+        <div id="calendarSection" style="display: none;">
+            <div id="calendar"></div> <!-- Aquí se mostrará el calendario -->
+
+            <!-- Botones debajo del calendario -->
+            <div class="mt-3">
+                <button id="saveDaysButton" class="btn btn-success" disabled>Guardar días no disponibles</button>
+                <button id="cancelSelectionButton" class="btn btn-secondary">Cancelar</button>
             </div>
-            <button type="submit" class="mt-4 bg-blue-500 text-white rounded px-4 py-2">Guardar</button>
-        </form>
+        </div>
     </div>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let calendar; // Instancia del calendario
+            let selectedDates = []; // Fechas seleccionadas
+
+            const showCalendarButton = document.getElementById('showCalendarButton');
+            const calendarSection = document.getElementById('calendarSection');
+            const saveDaysButton = document.getElementById('saveDaysButton');
+            const cancelSelectionButton = document.getElementById('cancelSelectionButton');
+
+            // Mostrar el calendario cuando se haga clic en el botón
+            showCalendarButton.addEventListener('click', function () {
+                calendarSection.style.display = 'block'; // Mostrar la sección del calendario
+
+                const calendarEl = document.getElementById('calendar');
+
+                if (!calendar) {
+                    calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        locale: 'es',
+                        selectable: true, // Permitir selección
+                        dateClick: function (info) {
+                            const dateStr = info.dateStr;
+
+                            // Alternar selección
+                            if (selectedDates.includes(dateStr)) {
+                                selectedDates = selectedDates.filter(date => date !== dateStr);
+                                info.dayEl.style.backgroundColor = ''; // Quitar color de selección
+                            } else {
+                                selectedDates.push(dateStr);
+                                info.dayEl.style.backgroundColor = '#007bff'; // Marcar de color
+                            }
+
+                            console.log('Fechas seleccionadas:', selectedDates);
+
+                            // Habilitar el botón Guardar si hay fechas seleccionadas
+                            saveDaysButton.disabled = selectedDates.length === 0;
+                        },
+                    });
+
+                    calendar.render();
+                }
+            });
+
+            // Cancelar selección y ocultar el calendario
+            cancelSelectionButton.addEventListener('click', function () {
+                calendarSection.style.display = 'none'; // Ocultar la sección del calendario
+                selectedDates = []; // Limpiar fechas seleccionadas
+                saveDaysButton.disabled = true; // Deshabilitar el botón Guardar
+
+                // Restaurar colores
+                const dayEls = calendarEl.querySelectorAll('.fc-daygrid-day');
+                dayEls.forEach(dayEl => dayEl.style.backgroundColor = '');
+            });
+
+            // Guardar las fechas seleccionadas
+            saveDaysButton.addEventListener('click', function () {
+                if (selectedDates.length > 0) {
+                    console.log("Fechas enviadas:", selectedDates);
+                    
+                    // Obtener el CSRF token desde el meta tag
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    
+                    // Realizar la solicitud AJAX para guardar las fechas
+                    fetch("{{ route('guardar.dias') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": csrfToken,
+                        },
+                        body: JSON.stringify({ fechas: selectedDates }), // Enviar las fechas seleccionadas
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message); // Mostrar mensaje de éxito
+                        if (data.message === 'Fechas guardadas exitosamente.') {
+                            calendarSection.style.display = 'none'; // Ocultar calendario después de guardar
+                            selectedDates = []; // Limpiar fechas
+                            saveDaysButton.disabled = true; // Deshabilitar el botón Guardar
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al guardar las fechas:', error);
+                        alert('Hubo un error al guardar las fechas.');
+                    });
+                } else {
+                    alert('Por favor, seleccione al menos un día.');
+                }
+            });
+        });
+    </script>
+
+
 
     <!-- Citas Pendientes -->
     <h1 class="text-2xl font-bold mb-4 text-center">Citas Pendientes</h1>

@@ -8,8 +8,9 @@ class Profesor extends Model
 {
     // Establecer la clave primaria personalizada
     protected $primaryKey = 'idProfesor';
-    
-    protected $table = 'profesor';  // Nombre de la tabla
+
+    // Nombre de la tabla en la base de datos
+    protected $table = 'profesor';
 
     // Definir los campos que se pueden asignar masivamente
     protected $fillable = ['nombre', 'apellido', 'DNI', 'Rol', 'password'];
@@ -20,8 +21,15 @@ class Profesor extends Model
         return $this->hasMany(AnunciosProf::class, 'idProfesor');
     }
 
+    // Relación inversa: un Profesor pertenece a un Usuario
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'idUsuario');  // Asegúrate de que el nombre de la relación es correcto
+        return $this->belongsTo(User::class, 'idUsuario'); // Relación con la tabla usuarios
     }
+
+     // Relación con grado
+     public function grado()
+     {
+         return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
+     }
 }
