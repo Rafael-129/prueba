@@ -4,79 +4,71 @@
     - Listado
 @endsection
 
-@section('body')
-<div class="row mb-3">
-    <div class="col-12">
-        @if(auth()->user()->rol && auth()->user()->rol->idRol == 1) 
-            <!-- Solo visible para el profesor -->
-            <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">Crear un nuevo anuncio</a>
-        @endif
-    </div>
-</div>
+@section('content')
+<div class="container mt-5">
+    @if(auth()->user()->rol && auth()->user()->rol->idRol == 1)
+        <!-- Vista para idRol == 1 -->
+        <div class="row mb-4 justify-content-center">
+            <div class="col-12 text-center">
+                <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">
+                    <i class="fa-solid fa-plus-circle"></i> Crear un nuevo anuncio
+                </a>
+            </div>
+        </div>
 
-@if(auth()->user()->rol)
-    <p>Rol del usuario: {{ auth()->user()->rol->nombre }}</p>
-@else
-    <p>El usuario no tiene rol asignado.</p>
-@endif
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+                <form method="GET" action="{{ route('anuncios_profs.index') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
+                        <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento:</label>
+                        <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-search"></i> Buscar
+                        </button>
+                        <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">
+                            <i class="fa-solid fa-undo"></i> Restablecer
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-
-<div class="row mb-3">
-    <div class="col-md-6">
-        <form method="GET" action="{{ route('anuncios_profs.index') }}">
-            @csrf
-            <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
-            <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
-    </div>
-    <div class="col-md-6">
-            <label for="fechaev" class="form-label">Buscar anuncio por fecha del evento:</label>
-            <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12 text-end">
-        <button type="submit" class="btn btn-primary">Buscar</button>
-        <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">Restablecer</a>
-        </form>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>IMAGEN</th>
-                        <th>F. PUBLICACIÓN</th>
-                        <th>F. EVENTO</th>
-                        <th>LUGAR</th>
-                        <th>DETALLE</th>
-                        @if(auth()->user()->rol && auth()->user()->rol->idRol == 1)
-                            <!-- Botones solo visibles para el profesor -->
-                            <th>Editar</th>
-                            <th>Eliminar</th>
-                        @endif
+                        <th>Imagen</th>
+                        <th>F. Publicación</th>
+                        <th>F. Evento</th>
+                        <th>Lugar</th>
+                        <th>Detalle</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($anuncios_profs as $i => $row)
-                    <tr>
-                        <td>{{ $loop->iteration + ($anuncios_profs->currentPage() - 1) * $anuncios_profs->perPage() }}</td>
-                        <td>
-                            @if($row->image)
-                                <img class="img-fluid" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
-                            @else
-                                <span>Sin imagen</span>
-                            @endif
-                        </td>
-                        <td>{{ $row->fechapub }}</td>
-                        <td>{{ $row->fechaev }}</td>
-                        <td>{{ $row->lugar }}</td>
-                        <td>{{ $row->detalle }}</td>
-                        @if(auth()->user()->rol && auth()->user()->rol->idRol == 1)
-                            <!-- Mostrar botones solo si el usuario es profesor -->
+                    @forelse($anuncios_profs as $i => $row)
+                        <tr>
+                            <td>{{ $loop->iteration + ($anuncios_profs->currentPage() - 1) * $anuncios_profs->perPage() }}</td>
+                            <td>
+                                @if($row->image)
+                                    <img class="img-fluid" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
+                                @else
+                                    <span class="text-muted">Sin imagen</span>
+                                @endif
+                            </td>
+                            <td>{{ $row->fechapub }}</td>
+                            <td>{{ $row->fechaev }}</td>
+                            <td>{{ $row->lugar }}</td>
+                            <td>{{ $row->detalle }}</td>
                             <td>
                                 <a class="btn btn-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
                                     <i class="fa-solid fa-pencil-alt"></i>
@@ -91,23 +83,54 @@
                                     </button>
                                 </form>
                             </td>
-                        @endif
-                    </tr>
-                    @endforeach
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No hay anuncios disponibles</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-12 d-flex justify-content-center">
-        <div class="pagination-wrapper">
-            {{ $anuncios_profs->links('pagination::bootstrap-5') }}
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="pagination-wrapper">
+                    {{ $anuncios_profs->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
         </div>
-    </div>
+    @elseif(auth()->user()->rol && auth()->user()->rol->idRol == 2)
+        <!-- Vista para idRol == 2 -->
+        <div class="row">
+            @forelse($anuncios_profs as $row)
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        @if($row->image)
+                            <img class="card-img-top" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $row->fechaev }}</h5>
+                            <p class="card-text"><strong>Lugar:</strong> {{ $row->lugar }}</p>
+                            <p class="card-text">{{ $row->detalle }}</p>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12">
+                    <p class="text-center">No hay anuncios disponibles</p>
+                </div>
+            @endforelse
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="pagination-wrapper">
+                    {{ $anuncios_profs->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
-
 @endsection
 
 @section('js')
