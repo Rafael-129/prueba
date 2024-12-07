@@ -1,4 +1,18 @@
+
+
+
+
+@if(auth()->user()->rol && auth()->user()->rol->idRol == 1){
 @extends('layouts.headerProf') <!-- Asegúrate de usar el nombre correcto del archivo de layout -->
+}
+else{
+    @extends('layouts.headerIntra')
+}
+@endif
+
+
+
+
 
 @section('title', 'Contactos')
 
