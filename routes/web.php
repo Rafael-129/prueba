@@ -54,9 +54,13 @@ Route::middleware(['auth'])->group(function () {
 //rutas para citas
 Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Citas');
 Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');
+
+// Ruta para obtener las fechas disponibles para un profesor
+Route::get('/obtener-fechas-disponibles', [CitasController::class, 'obtenerFechasDisponibles']);
+
 Route::get('/ProfesorCitas', [ProfesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 Route::put('/profesor/citas/{id}', [ProfesorCitasController::class, 'actualizarEstado'])->name('profesor.citas.update');
-//...
+//..
 Route::post('/guardar-dias', [ProfesorCitasController::class, 'storeDiasNoDisponibles'])->name('guardar.dias');
 
 
