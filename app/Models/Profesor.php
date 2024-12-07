@@ -18,7 +18,7 @@ class Profesor extends Model
     // Relación uno a muchos con anuncios
     public function anuncios()
     {
-        return $this->hasMany(AnunciosProf::class, 'idProfesor', 'idProfesor');
+        return $this->hasMany(AnunciosProf::class, 'idProfesor');
     }
 
     // Relación inversa: un Profesor pertenece a un Usuario
@@ -26,4 +26,10 @@ class Profesor extends Model
     {
         return $this->belongsTo(User::class, 'idUsuario'); // Relación con la tabla usuarios
     }
+
+     // Relación con grado
+     public function grado()
+     {
+         return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
+     }
 }

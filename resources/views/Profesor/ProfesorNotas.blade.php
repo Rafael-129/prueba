@@ -1,4 +1,4 @@
-@extends('layouts.headerProf') <!-- Asegúrate de usar el nombre correcto del archivo de layout -->
+@extends('layouts.headerProf')
 
 @section('title', 'Notas')
 
@@ -7,10 +7,21 @@
     <h1>Listado de Notas</h1>
 
     <div class="d-flex align-items-center justify-content-between mb-3">
+        <!-- Filtro por Alumno -->
+        <form action="{{ route('profesor.notas.index') }}" method="GET" class="d-flex">
+            <select name="alumno_id" class="form-control form-control-sm me-2">
+                <option value="">Seleccionar Alumno</option>
+                @foreach($alumnos as $alumno)
+                    <option value="{{ $alumno->idAlumno }}" {{ request('alumno_id') == $alumno->idAlumno ? 'selected' : '' }}>
+                        {{ $alumno->nombre }} {{ $alumno->apellido }}
+                    </option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-secondary btn-sm">Filtrar</button>
+        </form>
+
         <!-- Botón "Agregar Nota" alineado a la izquierda -->
         <a href="{{ route('profesor.notas.create') }}" class="btn btn-primary btn-sm">Agregar Nota</a>
-
-
     </div>
 
     <!-- Tabla con Notas -->
@@ -18,7 +29,7 @@
         <thead>
             <tr>
                 <th>Alumno</th>
-                <th>Practica</th>
+                <th>Práctica</th>
                 <th>Nota</th>
                 <th>Curso</th>
                 <th>Acciones</th>
@@ -26,7 +37,7 @@
         </thead>
         <tbody>
             @foreach($notas as $nota)
-                <tr class="nota-row" data-alumno-id="{{ $nota->alumno->idAlumno }}">
+                <tr>
                     <td>{{ $nota->alumno->nombre }} {{ $nota->alumno->apellido }}</td>
                     <td>{{ $nota->materia }}</td>
                     <td>{{ $nota->nota }}</td>
@@ -44,5 +55,4 @@
         </tbody>
     </table>
 </div>
-
 @endsection

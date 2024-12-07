@@ -2,52 +2,38 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens; // Si planeas usar autenticación API
-use Laravel\Fortify\TwoFactorAuthenticatable; // Para autenticación de dos factores
-use Laravel\Jetstream\HasProfilePhoto; // Para fotos de perfil
+use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
 {
-    use Notifiable;
-    use HasApiTokens; // Descomentar si usas autenticación API
-    use HasProfilePhoto; // Si deseas manejar fotos de perfil
-    use TwoFactorAuthenticatable; // Para autenticación de dos factores
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'usuario'; // Nombre de la tabla en la base de datos
-    protected $primaryKey = 'idUsuario'; // Clave primaria
+    // Define la tabla 'usuario' en lugar de 'users'
+    protected $table = 'usuario';
+
+    // Define la clave primaria si es diferente
+    protected $primaryKey = 'idUsuario'; // Si el ID de la tabla es 'idUsuario'
 
     protected $fillable = [
-        'DNI',
-        'password', 
+        'name', 'email', 'password', 'idRol',
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token', 
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
-
-    public $timestamps = true; // Para manejar timestamps
-
-    // Accesor para URL de la foto de perfil
-    public function getProfilePhotoUrlAttribute()
+    // Relación con el modelo 'Rol'
+    public function rol()
     {
-        // Lógica para obtener la URL de la foto de perfil
-        return asset('path/to/profile/photos/' . $this->DNI . '.jpg'); // Cambia según tu lógica
+        return $this->belongsTo(Rol::class, 'idRol', 'idRol');
     }
 
-    // Obtener los atributos que deben ser casteados
-    protected function casts(): array
+    public function profesor()
     {
-        return [
-            'email_verified_at' => 'datetime', // Si decides incluir verificación de email
-        ];
+        return $this->hasOne(Profesor::class, 'idUsuario', 'idUsuario');
     }
     public function profesor()
     {
         return $this->hasOne(Profesor::class, 'idUsuario'); // La relación debe coincidir con la clave foránea
     }
 }
+

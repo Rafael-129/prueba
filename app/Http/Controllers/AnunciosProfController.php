@@ -63,19 +63,23 @@ class AnunciosProfController extends Controller
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('anuncios', 'public');
     } else {
-        $imagePath = null; // Si no se sube imagen, dejar el valor como null
+        $imagePath = null;
     }
+
+    // Obtener el idProfesor del usuario autenticado
+    $profesor = Auth::user()->profesor;  // Relación con el profesor
+    $idProfesor = $profesor ? $profesor->idProfesor : null;  // Obtener el id del profesor
 
     // Crear el nuevo anuncio
     AnunciosProf::create([
-        'image' => $imagePath,  // Ruta de la imagen si se subió
+        'image' => $imagePath,
         'fechapub' => $validatedData['fechapub'],
         'fechaev' => $validatedData['fechaev'],
         'lugar' => $validatedData['lugar'],
         'detalle' => $validatedData['detalle'],
+        'idProfesor' => $idProfesor,  // Asociar el idProfesor automáticamente
     ]);
 
-    // Redirigir con mensaje de éxito
     return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito');
 }
 

@@ -27,8 +27,6 @@ DROP TABLE IF EXISTS `alumno`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alumno` (
   `idAlumno` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `grado` int(11) NOT NULL,
-  `curso` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `apellido` varchar(255) NOT NULL,
@@ -466,3 +464,20 @@ ALTER TABLE disponibilidadprof DROP COLUMN idDia;
 
 
 
+<<<<<<< HEAD
+=======
+-- Dump completed on 2024-11-14 16:37:29
+
+DROP TABLE IF EXISTS `grado`;
+CREATE TABLE grado (
+    idGrado VARCHAR(50) PRIMARY KEY
+);
+
+ALTER TABLE alumno
+ADD COLUMN idGrado VARCHAR(50),
+ADD CONSTRAINT fk_grado_alumno FOREIGN KEY (idGrado) REFERENCES grado(idGrado);
+
+ALTER TABLE profesor
+ADD COLUMN idGrado VARCHAR(50),
+ADD CONSTRAINT fk_grado_profesor FOREIGN KEY (idGrado) REFERENCES grado(idGrado);
+>>>>>>> d97b31dd7d7343132f8922bc49ca6b485ae6bdd8

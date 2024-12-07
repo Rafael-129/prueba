@@ -7,58 +7,74 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        /* CSS de Encabezado */
-        .encabezado {
-            background-color: #1F308A;
-            color: white;
-        }
+    /* CSS Global */
+    html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .titulo {
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-            margin: 0;
-            padding-left: 5px;
-        }
+    /* Encabezado */
+    .encabezado {
+        background-color: #1F308A;
+        color: white;
+    }
 
-        .navbar-nav .nav-link {
-            color: white !important;
-            font-weight: bold;
-            margin-right: 15px; /* Espacio entre los elementos del menú */
-        }
+    .titulo {
+        font-size: 24px;
+        color: white;
+        font-weight: bold;
+        margin: 0;
+        padding-left: 5px;
+    }
 
-        .navbar-nav .nav-link:hover {
-            text-decoration: underline;
-        }
+    .navbar-nav .nav-link {
+        color: white !important;
+        font-weight: bold;
+        margin-right: 15px; /* Espacio entre los elementos del menú */
+    }
 
-        .intranet {
-            background-color: #C00;
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: white !important;
-        }
+    .navbar-nav .nav-link:hover {
+        text-decoration: underline;
+    }
 
-        .intranet:hover {
-            background-color: #900;
-        }
+    .intranet {
+        background-color: #C00;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: white !important;
+    }
 
-        /* Pie de Página */
-        .pie-pagina {
-            background-color: #1F308A; 
-            color: white;
-            text-align: center;
-            padding: 15px;
-            width: 100%;
-            font-size: 14px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-        }
+    .intranet:hover {
+        background-color: #900;
+    }
 
-        .logopie {
-            width: 20%; 
-            height: 100px; 
-            margin: 0 auto; 
-            display: block;
-        }
+    /* Contenido Principal */
+    .contenido {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Pie de Página */
+    .pie-pagina {
+        background-color: #1F308A; 
+        color: white;
+        text-align: center;
+        padding: 15px;
+        font-size: 14px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        width: 100%;
+    }
+
+    .logopie {
+        width: 20%; 
+        height: 100px; 
+        margin: 0 auto; 
+        display: block;
+    }
     </style>
 </head>
 <body>
@@ -109,7 +125,7 @@
     </nav>
 
     <!-- Contenido Principal -->
-    <div class="contenido flex-grow-1">
+    <div class="contenido">
         @yield('content') 
     </div>
     

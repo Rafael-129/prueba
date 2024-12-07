@@ -59,8 +59,6 @@ class LoginController extends Controller
             $item->idUsuario = $idUsuario;  // Relación con la tabla usuario
 
             // Agregar los campos 'grado' y 'curso' más tarde cuando estén disponibles
-            $item->grado = null; 
-            $item->curso = null; 
             $item->fecha = now(); 
             $item->save();
         }

@@ -1,28 +1,30 @@
 @extends('layout')
-@section('title')
-    -Listado
-@endsection
-@section('body')
 
+@section('title')
+    - Listado
+@endsection
+
+@section('body')
 <div class="row mb-3">
     <div class="col-12">
-        <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">Crear un nuevo anuncio</a>
+        @if(auth()->user()->rol && auth()->user()->rol->idRol == 1) 
+            <!-- Solo visible para el profesor -->
+            <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">Crear un nuevo anuncio</a>
+        @endif
     </div>
 </div>
 
-@if($msj = Session::get('success'))
-    <div class="row" id="alerta">
-        <div class="col-md-4 offset-md-4">
-            <div class="alert alert-success">
-                <p><i class="fa-solid fa-check"></i> {{ $msj }}</p>
-            </div>
-        </div>
-    </div>
+@if(auth()->user()->rol)
+    <p>Rol del usuario: {{ auth()->user()->rol->nombre }}</p>
+@else
+    <p>El usuario no tiene rol asignado.</p>
 @endif
+
 
 <div class="row mb-3">
     <div class="col-md-6">
         <form method="GET" action="{{ route('anuncios_profs.index') }}">
+            @csrf
             <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
             <input type="text" name="lugar" id="lugar" class="form-control" placeholder="Lugar" value="{{ request('lugar') }}">
     </div>
@@ -51,8 +53,11 @@
                         <th>F. EVENTO</th>
                         <th>LUGAR</th>
                         <th>DETALLE</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        @if(auth()->user()->rol && auth()->user()->rol->idRol == 1)
+                            <!-- Botones solo visibles para el profesor -->
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -70,20 +75,23 @@
                         <td>{{ $row->fechaev }}</td>
                         <td>{{ $row->lugar }}</td>
                         <td>{{ $row->detalle }}</td>
-                        <td>
-                            <a class="btn btn-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
-                                <i class="fa-solid fa-pencil-alt"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <form id="frm_{{ $row->id }}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
+                        @if(auth()->user()->rol && auth()->user()->rol->idRol == 1)
+                            <!-- Mostrar botones solo si el usuario es profesor -->
+                            <td>
+                                <a class="btn btn-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
+                                    <i class="fa-solid fa-pencil-alt"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <form id="frm_{{ $row->id }}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class AnunciosProf extends Model
 {
-    use HasFactory;
+    // Definir la relación con el modelo Profesor
+    public function profesor()
+    {
+        return $this->belongsTo(Profesor::class, 'idProfesor');  // 'idProfesor' es la clave foránea
+    }
 
-    // Campos que se pueden asignar masivamente
-    protected $fillable = ['image', 'fechapub', 'fechaev', 'lugar', 'detalle'];
-
-    // Si no necesitas la relación con la tabla profesor, elimina este método:
-    // public function profesor()
-    // {
-    //     return $this->belongsTo(Profesor::class, 'idProfesor', 'idProfesor');
-    // }
+    protected $fillable = [
+        'image', 'fechaev', 'fechapub', 'lugar', 'detalle', 'idProfesor'
+    ];
+    
 }
+
+

@@ -28,6 +28,7 @@
                 </select>
             </div>
 
+
             <div class="mb-3">
                 <label for="idCursos" class="form-label">Curso</label>
                 <select class="form-control" id="idCursos" name="idCursos" required>
