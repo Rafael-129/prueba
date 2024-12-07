@@ -29,11 +29,7 @@ class Usuario extends Authenticatable
 
     public function profesor()
     {
-        return $this->hasOne(Profesor::class, 'idUsuario', 'idUsuario');
-    }
-    public function profesor()
-    {
-        return $this->hasOne(Profesor::class, 'idUsuario'); // La relación debe coincidir con la clave foránea
+        return $this->hasOne(Profesor::class, 'idUsuario');
     }
 }
 
