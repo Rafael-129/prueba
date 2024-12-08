@@ -35,7 +35,7 @@ class CitasController extends Controller
         $profesores = Profesor::all();
     
         // Pasar las variables necesarias a la vista
-        return view('Alumno.Citas', compact('citas', 'estados', 'profesor'));
+        return view('Alumno.Citas', compact('citas', 'estados', 'profesores'));
     }
  
     public function mostrarFormularioReserva(Request $request)
@@ -66,7 +66,7 @@ class CitasController extends Controller
         $request->validate([
             'fechaReserva' => 'required|date',
             'horaReserva' => 'required',
-            'idProfesor' => 'required|exists:profesores,idProfesor',
+            'idProfesor' => 'required|exists:profesor,idProfesor',
             'descargo' => 'nullable|string|max:255',
         ]);
 
