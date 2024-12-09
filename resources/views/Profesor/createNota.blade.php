@@ -10,16 +10,6 @@
             @csrf
 
             <div class="mb-3">
-                <label for="materia" class="form-label">Practica</label>
-                <input type="text" class="form-control" id="materia" name="materia" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="nota" class="form-label">Nota</label>
-                <input type="number" class="form-control" id="nota" name="nota" min="0" max="20" required>
-            </div>
-
-            <div class="mb-3">
                 <label for="idAlumnos" class="form-label">Alumno</label>
                 <select class="form-control" id="idAlumnos" name="idAlumnos" required>
                     @foreach($alumnos as $alumno)
@@ -36,6 +26,16 @@
                         <option value="{{ $curso->idCursos }}">{{ $curso->nombreCurso }}</option>
                     @endforeach
                 </select>
+            </div>        
+
+            <div class="mb-3">
+                <label for="materia" class="form-label">Practica</label>
+                <input type="text" class="form-control" id="materia" name="materia" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="nota" class="form-label">Nota</label>
+                <input type="number" class="form-control" id="nota" name="nota" min="0" max="20" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar Nota</button>
