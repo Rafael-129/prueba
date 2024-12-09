@@ -12,7 +12,7 @@ class AnunciosProfController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */ 
+     */
     public function index(Request $request)
     {
         // Inicializar la consulta base
@@ -67,22 +67,8 @@ class AnunciosProfController extends Controller
     }
 
     // Obtener el idProfesor del usuario autenticado
-    $profesor = Auth::user()->profesor; // Relación con el profesor
-    $idProfesor = $profesor ? $profesor->idProfesor : null; // Obtener el id del profesor
-
-    // Verificar duplicados antes de crear el nuevo anuncio
-    $existeDuplicado = AnunciosProf::where('idProfesor', $idProfesor)
-        ->where('fechapub', $validatedData['fechapub'])
-        ->where('fechaev', $validatedData['fechaev'])
-        ->where('lugar', $validatedData['lugar'])
-        ->where('detalle', $validatedData['detalle'])
-        ->exists();
-
-    if ($existeDuplicado) {
-        return redirect()->back()
-            ->withInput($request->all())
-            ->withErrors(['error' => 'Ya existe un anuncio con los mismos datos.']);
-    }
+    $profesor = Auth::user()->profesor;  // Relación con el profesor
+    $idProfesor = $profesor ? $profesor->idProfesor : null;  // Obtener el id del profesor
 
     // Crear el nuevo anuncio
     AnunciosProf::create([
@@ -91,7 +77,7 @@ class AnunciosProfController extends Controller
         'fechaev' => $validatedData['fechaev'],
         'lugar' => $validatedData['lugar'],
         'detalle' => $validatedData['detalle'],
-        'idProfesor' => $idProfesor, // Asociar el idProfesor automáticamente
+        'idProfesor' => $idProfesor,  // Asociar el idProfesor automáticamente
     ]);
 
     return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio creado con éxito');
@@ -179,5 +165,4 @@ class AnunciosProfController extends Controller
         $anuncio->delete();
         return redirect()->route('anuncios_profs.index')->with('success', 'Anuncio eliminado correctamente.');
     }
-
 }
