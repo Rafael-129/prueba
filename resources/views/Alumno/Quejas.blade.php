@@ -1,5 +1,4 @@
-@extends('layouts.headerIntra') <!-- Asegúrate de usar el nombre correcto del archivo de layout -->
-
+@extends('layouts.headerIntra')     
 @section('title', 'Quejas')
 
 @section('content')
@@ -104,57 +103,59 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <form action="">
-            <h3>Contactanos</h3>
-            <p>1. Identificación del consumidor reclamante:</p>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="consumerType" id="parent" value="parent">
-                <label class="form-check-label" for="parent">Padre</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="consumerType" id="student" value="student">
-                <label class="form-check-label" for="student">Alumno</label>
-            </div>
-            <div class="form-row">
-                <input type="text" class="form-control" placeholder="Nombres">
-                <input type="text" class="form-control" placeholder="Apellido Paterno">
-            </div>
-            <div class="form-row">
-                <input type="text" class="form-control" placeholder="Apellido Materno">
-                <input type="text" class="form-control" placeholder="Fecha de Reclamo">
-            </div>
+<div class="container">
+<form action="{{ route('guardarConsulta') }}" method="POST">
+        @csrf
 
-            <p>2. Seleccione el profesor:</p>
-            <select class="form-select" aria-label="Seleccione el profesor">
-                <option selected>Seleccionar </option>
-                <option value="1">Profesor 1</option>
-                <option value="2">Profesor 2</option>
-                <option value="3">Profesor 3</option>
-            </select>
+        <h3>Contactanos</h3>
 
-            <p>3. Detalle de la reclamación y pedido del consumidor:</p>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="claimType" id="consulta" value="consulta">
-                <label class="form-check-label" for="consulta">Consulta</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="claimType" id="queja" value="queja">
-                <label class="form-check-label" for="queja">Queja</label>
-            </div>
-            <textarea class="form-control" rows="3" placeholder="Detalles"></textarea>
+        <!-- Información del consumidor -->
+        <p>1. Identificación del consumidor:</p>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoConsumidor" id="Padre" value="Padre">
+            <label class="form-check-label" for="Padre">Padre</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoConsumidor" id="Alumno" value="Alumno">
+            <label class="form-check-label" for="Alumno">Alumno</label>
+        </div>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary">ENVIAR</button>
-                <button type="button" class="btn btn-secondary">VER ESTADO</button>
-            </div>
+        <!-- Datos del consumidor -->
+        <input type="text" class="form-control" name="nombres" placeholder="Nombres" required>
+        <input type="text" class="form-control" name="apellidoPaterno" placeholder="Apellido Paterno" required>
+        <input type="text" class="form-control" name="apellidoMaterno" placeholder="Apellido Materno" required>
 
-            <p class="footer-text">
-                Destinatario (consumidor, proveedor o INDECOPI según corresponda). 
-                La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es 
-                requisito previo para interponer una denuncia ante el INDECOPI. El proveedor deberá dar respuesta 
-                al reclamo en un plazo no mayor 48 horas.
-            </p>
-        </form>
-    </div>
+        <p>Que día sucesdio(Si es una queja)</p>
+        <input type="date" class="form-control" name="fechaReclamo">
+
+        <!-- Campo oculto para el idAlumno -->
+        <input type="hidden" name="idAlumno" value="{{ $idAlumno }}">
+
+        <!-- Selección de profesor -->
+        <p>2. Seleccione al profesor (Opcional):</p>
+        <select class="form-select" name="idProfesor" required>
+            <option selected disabled>Seleccione un profesor</option>
+            @foreach ($profesores as $profesor)
+                <option value="{{ $profesor->idProfesor }}">{{ $profesor->nombre }}</option>
+            @endforeach
+        </select>
+
+        <!-- Descripción de la queja o consulta -->
+        <p>3. Detalle de la reclamación o consulta:</p>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoConsulta" id="consulta" value="Consulta">
+            <label class="form-check-label" for="consulta">Consulta</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipoConsulta" id="queja" value="Queja">
+            <label class="form-check-label" for="queja">Queja</label>
+        </div>
+        <textarea class="form-control" name="descripcion" rows="3" placeholder="Escriba los detalles" required></textarea>
+
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Enviar Consulta</button>
+            <a href="{{ route('Alumno.Conectados') }}" class="btn btn-primary">Ver estado</a>
+        </div>
+    </form>
+</div>
 @endsection

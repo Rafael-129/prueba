@@ -12,6 +12,8 @@ use App\Http\Controllers\QuejasController;
 use App\Http\Controllers\ProfesorAnunciosController;
 use App\Http\Controllers\AnunciosProfController;
 use App\Http\Controllers\ProfesorNotasController;
+use App\Http\Controllers\ProfesorQuejasController;
+use App\Http\Controllers\ConsultaController;
 
 
 // Rutas de acceso público (Index)
@@ -38,7 +40,7 @@ Route::get('/Quejas', [QuejasController::class, 'quejas'])->name('Alumno.quejas'
 
 // Rutas de la aplicación para Profesores (Intranet)
 Route::get('/anuncios_profs', [ProfesorAnunciosController::class, 'panuncios'])->name('Profesor.Anuncios');
-Route::get('/ProfesorQuejas', [QuejasController::class, 'pquejas'])->name('Profesor.quejas');
+Route::get('/ProfesorQuejas', [ProfesorQuejasController::class, 'pquejas'])->name('Profesor.quejas');
 Route::get('/ProfesorNotas', [profesorNotasController::class, 'profNotas'])->name('Profesor.Notas');
 
 Route::middleware(['auth'])->group(function () {
@@ -54,16 +56,11 @@ Route::middleware(['auth'])->group(function () {
 //rutas para citas
 Route::get('/Citas', [CitasController::class, 'mostrarCitas'])->name('Alumno.Citas');
 Route::post('/ReservarCita', [CitasController::class, 'reservarCita'])->name('Alumno.reservarCita');
-
 // Ruta para obtener las fechas disponibles para un profesor
 Route::get('/obtener-fechas-disponibles', [CitasController::class, 'obtenerFechasDisponibles']);
-
 Route::get('/ProfesorCitas', [ProfesorCitasController::class, 'pCitas'])->name('Profesor.Citas');
 Route::put('/profesor/citas/{id}', [ProfesorCitasController::class, 'actualizarEstado'])->name('profesor.citas.update');
-//..
 Route::post('/guardar-dias', [ProfesorCitasController::class, 'storeDiasNoDisponibles'])->name('guardar.dias');
-
-
 
 // Rutas individuales para AnunciosProf
 Route::get('/anuncios_profs', [AnunciosProfController::class, 'index'])->name('anuncios_profs.index');
@@ -76,6 +73,32 @@ Route::delete('/anuncios_profs/{anuncios_prof}', [AnunciosProfController::class,
 
 Route::get('/Notas/curso/{idCurso}', [NotasController::class, 'detallesCurso'])->name('Alumno.notas.detalles');
 
+
+Route::get('/alumno/quejas', [QuejasController::class, 'quejas'])->name('alumno.quejas');
+Route::post('/alumno/enviarQueja', [QuejasController::class, 'enviarQueja'])->name('alumno.enviarQueja');
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    // Ruta para acceder a las quejas del profesor
+    Route::get('profesor/quejas', [ProfesorQuejasController::class, 'pquejas'])->name('profesor.quejas');
+
+    // Ruta para actualizar el estado de una queja
+    Route::post('profesor/quejas/{consultaId}/estado/{estadoId}', [ProfesorQuejasController::class, 'actualizarEstado'])->name('profesor.quejas.estado');
+});
+
+Route::get('Conectados', [ConsultaController::class, 'vista'])->name('Alumno.Conectados');
+
+
+Route::post('/guardar-consulta', [QuejasController::class, 'guardarConsulta'])->name('guardarConsulta');
+Route::post('/profesor/consultas/responder/{idConsulta}', [ProfesorQuejasController::class, 'responderConsulta'])->name('responderConsulta');
+Route::put('/profesor/consultas/{idConsulta}/estado', [ProfesorQuejasController::class, 'actualizarEstado'])->name('actualizarEstado');
+
+
+
+
+
 // Ruta para cerrar sesión
 Route::post('/logout', function () {
     Auth::logout();
@@ -84,3 +107,10 @@ Route::post('/logout', function () {
 
 
     Route::get('/alumnos/anuncios', [AnunciosProfController::class, 'index'])->name('anuncios.alumnos.index');
+
+
+
+    
+
+
+    

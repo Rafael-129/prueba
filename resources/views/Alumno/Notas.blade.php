@@ -15,10 +15,7 @@
                     <strong>Alumno:</strong> {{ $alumno->nombre }} {{ $alumno->apellido }}
                 </div>
                 <div class="col-md-6 mb-2">
-                    <strong>Sección:</strong> {{ $alumno->grado }}
-                </div>
-                <div class="col-md-6 mb-2">
-                    <strong>Grado:</strong> {{ $alumno->grado }}
+                    <strong>Grado:</strong> {{ $alumno->idGrado }}
                 </div>
                 <div class="col-md-6 mb-2">
                     <strong>Periodo Académico:</strong> {{ $alumno->fecha }}

@@ -51,8 +51,13 @@ class Alumno extends Model
     }
 
     public function grado()
-{
-    // Corregimos la relación con el campo `idGrado`
-    return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
-}
+    {
+        // Corregimos la relación con el campo `idGrado`
+        return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
+    }
+
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class, 'idAlumno', 'idAlumno');
+    }
 }
