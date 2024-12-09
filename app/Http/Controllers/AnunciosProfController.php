@@ -32,7 +32,11 @@ class AnunciosProfController extends Controller
         $anuncios_profs = $query->paginate(7);
 
         // Retornar la vista con los resultados
-        return view('Anuncios.index', compact('anuncios_profs'));
+        if (auth()->user()->rol->idRol == 1) {
+            return view('Anuncios.index', compact('anuncios_profs'));
+        } else {
+            return view('Anuncios.index', compact('anuncios_profs'));
+        }
     }
 
 
