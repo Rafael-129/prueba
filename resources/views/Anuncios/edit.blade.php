@@ -1,8 +1,6 @@
 @extends('Anuncios.form')
 
-@section('forName')
-    Editar anuncio: <b>{{ $anuncio->detalle }}</b>
-@endsection
+@section('formName', 'Editar anuncio: ' . $anuncio->detalle)
 
 @section('action')
     action="{{ route('anuncios_profs.update', $anuncio->id) }}"

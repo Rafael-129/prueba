@@ -1,10 +1,7 @@
 @extends('Anuncios.form')
 
-@section('formName')
-    Crear
-@endsection
+@section('formName', 'Crear')
 
 @section('action')
-    action = "{{ route('anuncios_profs.store') }}"
+    action="{{ route('anuncios_profs.store') }}"
 @endsection
-mkmk

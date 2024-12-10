@@ -1,4 +1,4 @@
-@extends('layout') 
+@extends('layouts.headerProf') 
 
 @section('title')
     - @yield('formName')

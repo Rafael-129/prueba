@@ -115,6 +115,7 @@
     <!-- Contenido Principal -->
     <div class="contenido flex-grow-1">
         @yield('content') <!-- Aquí se incluirá el contenido específico de cada página -->
+        @yield('body')
     </div>
 
     <!-- Pie de Página -->
