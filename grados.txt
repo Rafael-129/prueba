@@ -1,0 +1,33 @@
+USE eduplusx;
+
+--Crear tabla grado
+CREATE TABLE grado (
+    idGrado VARCHAR(50) PRIMARY KEY
+);
+
+--Alterar llaves
+ALTER TABLE alumno
+ADD COLUMN idGrado VARCHAR(50),
+ADD CONSTRAINT fk_grado_alumno FOREIGN KEY (idGrado) REFERENCES grado(idGrado);
+
+ALTER TABLE profesor
+ADD COLUMN idGrado VARCHAR(50),
+ADD CONSTRAINT fk_grado_profesor FOREIGN KEY (idGrado) REFERENCES grado(idGrado);
+
+-- Insertar los grados
+INSERT INTO grado (idGrado) VALUES
+('1ro de primaria'),
+('2do de primaria'),
+('3ro de primaria'),
+('4to de primaria'),
+('5to de primaria'),
+('6to de primaria');
+
+--actualizar grado del alumno
+UPDATE alumno
+SET idGrado = '1ro de primaria'
+WHERE idAlumno = 4;
+
+UPDATE profesor
+SET idGrado = '1ro de primaria'
+WHERE idProfesor = 7;

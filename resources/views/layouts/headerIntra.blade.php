@@ -97,7 +97,7 @@
                         <a class="nav-link" href="{{ route('Alumno.Citas') }}">Citas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('Alumno.quejas') }}">Conectados</a>
+                        <a class="nav-link" href="{{ route('Alumno.Conectados') }}">Conectados</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Alumno.notas') }}">Notas</a>

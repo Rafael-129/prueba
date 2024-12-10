@@ -111,10 +111,13 @@ DROP TABLE IF EXISTS `consultas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `consultas` (
   `idConsultas` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombres` VARCHAR(255) NOT NULL,
+  `apellidoPaterno` VARCHAR(255) NOT NULL,
+  `apellidoMaterno` VARCHAR(255) NOT NULL,
   `descripcion` text NOT NULL,
-  `fechaEnvio` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fechaEnvio` date,
   `respuesta` text NOT NULL,
-  `fechaRespuesta` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fechaRespuesta` date DEFAULT NULL,
   `idEstadoConsulta` int(10) unsigned NOT NULL,
   `idProfesor` int(10) unsigned NOT NULL,
   `idAlumno` int(10) unsigned NOT NULL,
@@ -420,7 +423,7 @@ CREATE TABLE `usuario` (
   `DNI` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `idRol` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`idUsuario`),phpmyadmin
+  PRIMARY KEY (`idUsuario`),
   KEY `idRol` (`idRol`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -443,6 +446,8 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-11-14 16:37:29
 -- Crear tabla `dia`
 ALTER TABLE disponibilidadprof DROP FOREIGN KEY disponibilidadprof_ibfk_1;
 ALTER TABLE disponibilidadprof DROP FOREIGN KEY disponibilidadprof_ibfk_2;
@@ -459,15 +464,6 @@ ALTER TABLE disponibilidadprof DROP FOREIGN KEY disponibilidadprof_ibfk_1;
 ALTER TABLE disponibilidadprof DROP INDEX idDia;
 ALTER TABLE disponibilidadprof DROP COLUMN idDia;
 
-
-
-
-
-
-<<<<<<< HEAD
-=======
--- Dump completed on 2024-11-14 16:37:29
-
 DROP TABLE IF EXISTS `grado`;
 CREATE TABLE grado (
     idGrado VARCHAR(50) PRIMARY KEY
@@ -480,4 +476,3 @@ ADD CONSTRAINT fk_grado_alumno FOREIGN KEY (idGrado) REFERENCES grado(idGrado);
 ALTER TABLE profesor
 ADD COLUMN idGrado VARCHAR(50),
 ADD CONSTRAINT fk_grado_profesor FOREIGN KEY (idGrado) REFERENCES grado(idGrado);
->>>>>>> d97b31dd7d7343132f8922bc49ca6b485ae6bdd8
