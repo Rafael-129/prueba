@@ -137,23 +137,13 @@
                 <!-- Contacto -->
                 <div class="col-md-4 mb-4">
                     <h5 class="text-uppercase font-weight-bold">Contáctanos</h5>
-                    <p class="small mb-1">📞 Teléfono: +51 950 861 034</p>
-                    <p class="small mb-1">📧 Email: Emiliodelsolar@gmail.edu.pe</p>
+                    <p class="small mb-1">📧 Email: emiliodelsolar2015@hotmail.com</p>
                     <p class="small">📍 Dirección: Lima, Chosica, Perú</p>
                     <h6 class="mt-3">Síguenos</h6>
                     <div class="d-flex">
                         <!-- Redes Sociales con SVG -->
-                        <a href="https://facebook.com" target="_blank" class="me-3">
+                        <a href="https://www.facebook.com/profile.php?id=100060244644278" target="_blank" class="me-3">
                             <img src="{{ asset('images/icons/facebook.svg') }}" alt="Facebook" style="width: 32px;">
-                        </a>
-                        <a href="https://twitter.com" target="_blank" class="me-3">
-                            <img src="{{ asset('images/icons/twitter.svg') }}" alt="Twitter" style="width: 32px;">
-                        </a>
-                        <a href="https://instagram.com" target="_blank" class="me-3">
-                            <img src="{{ asset('images/icons/instagram.svg') }}" alt="Instagram" style="width: 32px;">
-                        </a>
-                        <a href="https://linkedin.com" target="_blank">
-                            <img src="{{ asset('images/icons/linkedin.svg') }}" alt="LinkedIn" style="width: 32px;">
                         </a>
                     </div>
                 </div>
