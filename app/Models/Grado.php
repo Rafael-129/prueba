@@ -9,9 +9,9 @@ class Grado extends Model
 {
     use HasFactory;
 
-    protected $table = 'grado'; // Nombre de la tabla si no es singular
-    protected $primaryKey = 'idGrado'; // Si el nombre de la clave primaria es diferente
-    public $timestamps = false; // Si la tabla no tiene columnas created_at y updated_at
+    protected $table = 'grado'; 
+    protected $primaryKey = 'idGrado'; 
+    public $timestamps = false; 
 
     // Relación con los alumnos
     public function alumnos()

@@ -12,7 +12,7 @@ class NotasController extends Controller
     public function notas()
     {
         // Obtener el alumno asociado al usuario autenticado
-        $alumno = Alumno::with(['notas', 'curso'])->where('idUsuario', auth()->id())->first(); // Usamos auth()->id() para obtener el id del usuario autenticado
+        $alumno = Alumno::with(['notas', 'curso'])->where('idUsuario', auth()->id())->first(); 
         
         // Si no se encuentra un alumno para el usuario autenticado, podrías redirigir o mostrar un error
         if (!$alumno) {
