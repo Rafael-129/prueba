@@ -3,6 +3,8 @@
 @section('title', 'Login')
 
 @section('content')
+<br>
+<br>
 <style>
     /* CSS de Inicio de Sesion */
     .contenedor-login {
@@ -120,6 +122,8 @@
         </form>
     </div>
 </div>
+<br>
+<br>
 
 @endsection
 

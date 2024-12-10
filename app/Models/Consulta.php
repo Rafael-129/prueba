@@ -8,7 +8,7 @@ class Consulta extends Model
 {
     protected $primaryKey = 'idConsultas'; 
     protected $table = 'consultas'; 
-    
+    public $timestamps = false;
     protected $fillable = [
         'nombres', 'apellidoPaterno', 'apellidoMaterno', 'descripcion', 'fechaEnvio', 'respuesta', 
         'fechaRespuesta', 'idEstadoConsulta', 'idProfesor', 'idAlumno'

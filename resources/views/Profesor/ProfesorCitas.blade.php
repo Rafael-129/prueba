@@ -29,7 +29,7 @@
     }
     </style>
     <div class="container mt-5">
-        <h1 class="text-2xl font-bold mb-4 text-center">Disponibilidad del Profesor</h1>
+        
         <button id="showCalendarButton" class="btn btn-primary mb-3">Seleccionar tus días no disponibles</button>
         
         <!-- Sección del calendario (invisible inicialmente) -->
@@ -138,8 +138,6 @@
         });
     </script>
 
-
-
     <!-- Citas Pendientes -->
     <h1 class="text-2xl font-bold mb-4 text-center">Citas Pendientes</h1>
     <div class="bg-white shadow-lg rounded-lg p-6">
@@ -161,8 +159,10 @@
                         <td class="px-4 py-2">{{ $cita->horaReserva }}</td>
                         <td class="px-4 py-2">
                             <span class="inline-block px-2 py-1 text-sm rounded-full 
-                                {{ $cita->estadoReserva->estado == 'Pendiente' ? 'bg-yellow-200 text-yellow-800' : 
-                                ($cita->estadoReserva->estado == 'Confirmada' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800') }}">
+                                {{ $cita->estadoReserva->estado == 'Pendiente' ? 'bg-orange-200 text-orange-800' : 
+                                ($cita->estadoReserva->estado == 'Confirmada' ? 'bg-green-200 text-green-800' : 
+                                ($cita->estadoReserva->estado == 'Cancelada' ? 'bg-red-200 text-red-800' : 
+                                ($cita->estadoReserva->estado == 'Atendida' ? 'bg-green-600 text-white' : '')) ) }}">
                                 {{ $cita->estadoReserva->estado }}
                             </span>
                         </td>
@@ -175,7 +175,8 @@
                                 <select name="idEstadoReserva" class="border rounded px-3 py-2 text-gray-700">
                                     <option value="1" {{ $cita->idEstadoReserva == 1 ? 'selected' : '' }}>Pendiente</option>
                                     <option value="2" {{ $cita->idEstadoReserva == 2 ? 'selected' : '' }}>Confirmada</option>
-                                    <option value="3" {{ $cita->idEstadoReserva == 3 ? 'selected' : '' }}>Cancelar</option>
+                                    <option value="3" {{ $cita->idEstadoReserva == 3 ? 'selected' : '' }}>Cancelada</option>
+                                    <option value="4" {{ $cita->idEstadoReserva == 4 ? 'selected' : '' }}>Atendida</option>
                                 </select>
                                 <button type="submit" class="mt-2 bg-blue-500 text-white rounded px-4 py-2">Actualizar</button>
                             </form>

@@ -23,8 +23,4 @@ class EstadoReserva extends Model
         return $this->hasMany(reserva::class, 'idEstadoReserva', 'idEstadoReserva');
     }
 
-    public function estadoReserva()
-    {
-        return $this->belongsTo(EstadoReserva::class, 'idEstadoReserva', 'idEstadoReserva');
-    }
 }

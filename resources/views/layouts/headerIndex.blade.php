@@ -65,7 +65,7 @@
     <!-- Encabezado -->
     <nav class="navbar navbar-expand-lg encabezado">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="#">
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('index.propuestas_educativas') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Emilio del Solar Logo" class="logo" width="60" height="auto">
                 <span class="titulo ms-2">EduPlus</span>
             </a>
@@ -81,7 +81,7 @@
                     <a class="nav-link" href="{{ route('index.nosotros') }}">Nosotros</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="{{ route('index.anuncios') }}">Anuncios</a>
+                    <a class="nav-link" href="{{ route('index.anuncios') }}">Publicaciones</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="{{ route('index.contactanos') }}">Contáctenos</a>
@@ -100,10 +100,76 @@
     </div>
     
     <!-- Pie de Página -->
-    <div class="pie-pagina">
-        <img src="{{ asset('images/pie.jpeg') }}" alt="Emilio del Solar" class="logopie">   
-    </div>
-    
+    <footer class="py-5" style="background-color: #192C73; color: white;">
+        <div class="container">
+            <div class="row">
+                <!-- Descripción -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase font-weight-bold">Sobre Edu Plus</h5>
+                    <p class="small">
+                        Edu Plus es una plataforma educativa diseñada para conectar a estudiantes, docentes y padres, ofreciendo herramientas modernas para el aprendizaje.
+                    </p>
+                    <img src="{{ asset('images/pie.jpeg') }}" alt="Logo Edu Plus" class="img-fluid mt-3" style="max-width: 120px;">
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase font-weight-bold">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li class="nav-item">
+                            <a class="nav-link text-light text-decoration-none" href="{{ route('index.propuestas_educativas') }}">Propuesta Educativa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light text-decoration-none" href="{{ route('index.nosotros') }}">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light text-decoration-none" href="{{ route('index.anuncios') }}">Publicaciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light text-decoration-none" href="{{ route('index.contactanos') }}">Contáctenos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light text-decoration-none" href="{{ route('Login') }}">Intranet</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contacto -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase font-weight-bold">Contáctanos</h5>
+                    <p class="small mb-1">📞 Teléfono: +51 950 861 034</p>
+                    <p class="small mb-1">📧 Email: Emiliodelsolar@gmail.edu.pe</p>
+                    <p class="small">📍 Dirección: Lima, Chosica, Perú</p>
+                    <h6 class="mt-3">Síguenos</h6>
+                    <div class="d-flex">
+                        <!-- Redes Sociales con SVG -->
+                        <a href="https://facebook.com" target="_blank" class="me-3">
+                            <img src="{{ asset('images/icons/facebook.svg') }}" alt="Facebook" style="width: 32px;">
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="me-3">
+                            <img src="{{ asset('images/icons/twitter.svg') }}" alt="Twitter" style="width: 32px;">
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="me-3">
+                            <img src="{{ asset('images/icons/instagram.svg') }}" alt="Instagram" style="width: 32px;">
+                        </a>
+                        <a href="https://linkedin.com" target="_blank">
+                            <img src="{{ asset('images/icons/linkedin.svg') }}" alt="LinkedIn" style="width: 32px;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Derechos Reservados -->
+            <div class="row mt-4 border-top pt-3">
+                <div class="col text-center">
+                    <p class="small mb-0">© 2024 Edu Plus. Todos los derechos reservados.</p>
+                    <p class="small">Desarrollado por el equipo de Edu Plus</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
