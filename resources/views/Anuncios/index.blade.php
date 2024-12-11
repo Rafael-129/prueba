@@ -1,4 +1,4 @@
-@extends('layouts.headerProf')
+@extends(auth()->check() && auth()->user()->rol && auth()->user()->rol->idRol == 1 ? 'layouts.headerProf' : 'layouts.headerIntra')
 
 @section('title')
     - Listado
@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="container mt-5">
-    @if(auth()->user()->rol && auth()->user()->rol->idRol == 1)
-        <!-- Vista para idRol == 1 -->
+    @if(auth()->check() && auth()->user()->rol && auth()->user()->rol->idRol == 1)
+        <!-- Vista para Profesores (idRol == 1) -->
         <div class="row mb-4 justify-content-center">
             <div class="col-12 text-center">
                 <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">
@@ -100,8 +100,8 @@
                 </div>
             </div>
         </div>
-    @elseif(auth()->user()->rol && auth()->user()->rol->idRol == 2)
-        <!-- Vista para idRol == 2 -->
+    @elseif(auth()->check() && auth()->user()->rol && auth()->user()->rol->idRol == 2)
+        <!-- Vista para Alumnos (idRol == 2) -->
         <div class="row">
             @forelse($anuncios_profs as $row)
                 <div class="col-md-6 mb-4">
