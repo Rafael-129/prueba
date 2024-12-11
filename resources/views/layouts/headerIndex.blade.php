@@ -138,8 +138,7 @@
                 <!-- Contacto -->
                 <div class="col-md-4 mb-4">
                     <h5 class="text-uppercase font-weight-bold">Contáctanos</h5>
-                    <p class="small mb-1">📞 Teléfono: +51 950 861 034</p>
-                    <p class="small mb-1">📧 Email: Emiliodelsolar@gmail.edu.pe</p>
+                    <p class="small mb-1">📧 Email: emiliodelsolar2015@hotmail.com</p>
                     <p class="small">📍 Dirección: Lima, Chosica, Perú</p>
                     <h6 class="mt-3">Síguenos</h6>
                     <div class="d-flex">
