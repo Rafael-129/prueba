@@ -87,6 +87,32 @@
             opacity: 0.9;
         }
 
+        .card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+    }
+
+    .card-header {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    button.btn {
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    button.btn:hover {
+        opacity: 0.9;
+    }
+
+
     </style>
 </head>
 <body>
