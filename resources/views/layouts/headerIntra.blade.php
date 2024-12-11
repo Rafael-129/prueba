@@ -76,6 +76,33 @@
         margin: 0 auto; 
         display: block;
     }
+
+    .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card .card-footer {
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
     </style>
 </head>
 <body>

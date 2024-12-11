@@ -10,7 +10,7 @@
         <!-- Vista para Profesores (idRol == 1) -->
         <div class="row mb-4 justify-content-center">
             <div class="col-12 text-center">
-                <a href="{{ route('anuncios_profs.create') }}" class="btn btn-success">
+                <a href="{{ route('anuncios_profs.create') }}" class="btn btn-primary btn-lg shadow">
                     <i class="fa-solid fa-plus-circle"></i> Crear un nuevo anuncio
                 </a>
             </div>
@@ -18,7 +18,7 @@
 
         <div class="row mb-4">
             <div class="col-md-6 offset-md-3">
-                <form method="GET" action="{{ route('anuncios_profs.index') }}">
+                <form method="GET" action="{{ route('anuncios_profs.index') }}" class="p-4 border rounded shadow">
                     @csrf
                     <div class="mb-3">
                         <label for="lugar" class="form-label">Buscar anuncio por lugar:</label>
@@ -29,10 +29,10 @@
                         <input type="date" name="fechaev" id="fechaev" class="form-control" value="{{ request('fechaev') }}">
                     </div>
                     <div class="mb-3 text-center">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-success shadow">
                             <i class="fa-solid fa-search"></i> Buscar
                         </button>
-                        <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('anuncios_profs.index') }}" class="btn btn-secondary shadow">
                             <i class="fa-solid fa-undo"></i> Restablecer
                         </a>
                     </div>
@@ -40,94 +40,91 @@
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Imagen</th>
-                        <th>F. Publicación</th>
-                        <th>F. Evento</th>
-                        <th>Lugar</th>
-                        <th>Detalle</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($anuncios_profs as $i => $row)
-                        <tr>
-                            <td>{{ $loop->iteration + ($anuncios_profs->currentPage() - 1) * $anuncios_profs->perPage() }}</td>
-                            <td>
-                                @if($row->image)
-                                    <img class="img-fluid" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="max-width: 120px; height: auto;">
-                                @else
-                                    <span class="text-muted">Sin imagen</span>
-                                @endif
-                            </td>
-                            <td>{{ $row->fechapub }}</td>
-                            <td>{{ $row->fechaev }}</td>
-                            <td>{{ $row->lugar }}</td>
-                            <td>{{ $row->detalle }}</td>
-                            <td>
-                                <a class="btn btn-warning" href="{{ route('anuncios_profs.edit', $row->id) }}">
-                                    <i class="fa-solid fa-pencil-alt"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <form id="frm_{{ $row->id }}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">No hay anuncios disponibles</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
         <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <div class="pagination-wrapper">
-                    {{ $anuncios_profs->links('pagination::bootstrap-5') }}
+            @forelse($anuncios_profs as $row)
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow h-100">
+                        @if($row->image)
+                            <img class="card-img-top" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="height: 200px; object-fit: cover;">
+                        @else
+                            <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa;">
+                                <span class="text-muted">Sin imagen</span>
+                            </div>
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $row->lugar }}</h5>
+                            <p class="card-text">{{ $row->detalle }}</p>
+                            <p class="text-muted mb-1"><strong>Fecha Evento:</strong> {{ $row->fechaev }}</p>
+                            <p class="text-muted"><strong>Fecha Publicación:</strong> {{ $row->fechapub }}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="{{ route('anuncios_profs.edit', $row->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fa-solid fa-pencil-alt"></i> Editar
+                            </a>
+                            <form id="frm_{{ $row->id }}" method="POST" action="{{ route('anuncios_profs.destroy', $row->id) }}">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @empty
+                <div class="col-12 text-center">
+                    <p class="text-muted">No hay anuncios disponibles</p>
+                </div>
+            @endforelse
         </div>
     @elseif(auth()->check() && auth()->user()->rol && auth()->user()->rol->idRol == 2)
         <!-- Vista para Alumnos (idRol == 2) -->
         <div class="row">
             @forelse($anuncios_profs as $row)
                 <div class="col-md-6 mb-4">
-                    <div class="card">
-                        @if($row->image)
-                            <img class="card-img-top" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio">
-                        @endif
+                    <div class="card shadow h-100">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#anuncioModal{{ $row->id }}">
+                            @if($row->image)
+                                <img class="card-img-top" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio" style="height: 300px; object-fit: cover;">
+                            @endif
+                        </a>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $row->fechaev }}</h5>
-                            <p class="card-text"><strong>Lugar:</strong> {{ $row->lugar }}</p>
-                            <p class="card-text">{{ $row->detalle }}</p>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#anuncioModal{{ $row->id }}">
+                                <h5 class="card-title text-primary">{{ $row->lugar }}</h5>
+                            </a>
+                            <p class="card-text">{{ Str::limit($row->detalle, 100) }}</p>
+                            <p class="text-muted"><strong>Fecha:</strong> {{ $row->fechaev }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para mostrar anuncio expandido -->
+                <div class="modal fade" id="anuncioModal{{ $row->id }}" tabindex="-1" aria-labelledby="anuncioModalLabel{{ $row->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="anuncioModalLabel{{ $row->id }}">{{ $row->lugar }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                @if($row->image)
+                                    <img class="img-fluid mb-3" src="{{ asset('storage/' . $row->image) }}" alt="Imagen del anuncio">
+                                @endif
+                                <p><strong>Fecha del evento:</strong> {{ $row->fechaev }}</p>
+                                <p><strong>Fecha de publicación:</strong> {{ $row->fechapub }}</p>
+                                <p>{{ $row->detalle }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             @empty
-                <div class="col-12">
-                    <p class="text-center">No hay anuncios disponibles</p>
+                <div class="col-12 text-center">
+                    <p class="text-muted">No hay anuncios disponibles</p>
                 </div>
             @endforelse
-        </div>
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <div class="pagination-wrapper">
-                    {{ $anuncios_profs->links('pagination::bootstrap-5') }}
-                </div>
-            </div>
         </div>
     @endif
 </div>
