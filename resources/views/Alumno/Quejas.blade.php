@@ -132,7 +132,7 @@
         <input type="hidden" name="idAlumno" value="{{ $idAlumno }}">
 
         <!-- Selección de profesor -->
-        <p>2. Seleccione al profesor (Opcional):</p>
+        <p>2. Seleccione al profesor:</p>
         <select class="form-select" name="idProfesor" required>
             <option selected disabled>Seleccione un profesor</option>
             @foreach ($profesores as $profesor)

@@ -50,7 +50,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <button type="submit" class="mt-2 bg-blue-500 text-white rounded px-4 py-2">Actualizar</button>
+                            <button type="submit" class="mt-2 bg-blue-500 text-black rounded px-4 py-2">Actualizar</button>
                         </form>
                         </div>
                     </p>

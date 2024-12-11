@@ -146,10 +146,10 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('images/user-icon.png') }}" alt="Usuario" width="30" height="30" class="rounded-circle">
+                            Intranet
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
-                            <li><a class="dropdown-item" href="">Perfil</a></li>
+                     
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
