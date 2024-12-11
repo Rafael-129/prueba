@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPlus</title>
+    <title>Emilio del solar</title>
+    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -67,7 +68,7 @@
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('index.propuestas_educativas') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Emilio del Solar Logo" class="logo" width="60" height="auto">
-                <span class="titulo ms-2">EduPlus</span>
+                <span class="titulo ms-2">Emilio del solar</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -144,16 +145,16 @@
                     <div class="d-flex">
                         <!-- Redes Sociales con SVG -->
                         <a href="https://facebook.com" target="_blank" class="me-3">
-                            <img src="{{ asset('images/icons/facebook.svg') }}" alt="Facebook" style="width: 32px;">
+                            <img src="{{ asset('images/face.jpg') }}" alt="Facebook" style="width: 32px;">
                         </a>
                         <a href="https://twitter.com" target="_blank" class="me-3">
-                            <img src="{{ asset('images/icons/twitter.svg') }}" alt="Twitter" style="width: 32px;">
+                            <img src="{{ asset('images/tw.jpg') }}" alt="Twitter" style="width: 60px;">
                         </a>
                         <a href="https://instagram.com" target="_blank" class="me-3">
-                            <img src="{{ asset('images/icons/instagram.svg') }}" alt="Instagram" style="width: 32px;">
+                            <img src="{{ asset('images/insta.jpg') }}" alt="Instagram" style="width: 32px;">
                         </a>
                         <a href="https://linkedin.com" target="_blank">
-                            <img src="{{ asset('images/icons/linkedin.svg') }}" alt="LinkedIn" style="width: 32px;">
+                            <img src="{{ asset('images/link.jpg') }}" alt="LinkedIn" style="width: 32px;">
                         </a>
                     </div>
                 </div>

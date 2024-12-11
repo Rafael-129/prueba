@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduPlus Intranet - @yield('title')</title>
+    <link rel="shortcut icon" href="{{ asset('images/logo_eduplus.jpeg') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -47,7 +48,7 @@
             background-color: #1F308A; 
             color: white;
             text-align: center;
-            padding: 15px;
+            padding: 50px;
             width: 100%;
             font-size: 14px;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
@@ -66,8 +67,8 @@
     <!-- Encabezado -->
     <nav class="navbar navbar-expand-lg encabezado">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{{ asset('images/logo.png') }}" alt="Emilio del Solar Logo" class="logo" width="60" height="auto">
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('anuncios_profs.index') }}">
+                <img src="{{ asset('images/logo_eduplus.jpeg') }}" alt="Emilio del Solar Logo" class="logo" width="100" height="auto">
                 <span class="titulo ms-2">EduPlus</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,9 +87,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Profesor.Notas') }}">Notas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Horarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Registro') }}">Registrar</a>
@@ -120,8 +118,7 @@
 
     <!-- Pie de Página -->
     <div class="pie-pagina">
-        <img src="{{ asset('images/pie.jpeg') }}" alt="Emilio del Solar" class="logopie">   
-    </div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
