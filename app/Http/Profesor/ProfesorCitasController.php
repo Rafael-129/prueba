@@ -1,5 +1,7 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Profesor;
+
+use App\Http\Controllers\Controller;
 use App\Models\Dia;
 use Illuminate\Http\Request;
 use App\Models\Reserva;

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Alumno;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Alumno;
 use App\Models\Notas;

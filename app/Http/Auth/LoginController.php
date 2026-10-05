@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Auth;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -37,7 +39,7 @@ class LoginController extends Controller
         $usuario = new Usuario();
         $usuario->DNI = $request->DNI;
         $usuario->password = $request->password; 
-        $usuario->idrol = $request->rol;
+        $usuario->idRol = $request->rol;
         $usuario->save();
     
         // Obtener el ID del usuario recién creado
