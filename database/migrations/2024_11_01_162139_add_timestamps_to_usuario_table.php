@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Usuario', function (Blueprint $table) {
-            if (!Schema::hasColumn('Usuario', 'created_at')) {
+        Schema::table('usuario', function (Blueprint $table) {
+            if (!Schema::hasColumn('usuario', 'created_at')) {
                 $table->timestamp('created_at')->nullable();
             }
     
-            if (!Schema::hasColumn('Usuario', 'updated_at')) {
+            if (!Schema::hasColumn('usuario', 'updated_at')) {
                 $table->timestamp('updated_at')->nullable();
             }
         });

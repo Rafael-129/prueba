@@ -16,7 +16,7 @@ class AddIdprofesorToAnunciosProfs extends Migration
         Schema::table('anuncios_profs', function (Blueprint $table) {
             // Asegurarse de que la columna no existe antes de agregarla
             if (!Schema::hasColumn('anuncios_profs', 'idprofesor')) {
-                $table->unsignedBigInteger('idprofesor')->nullable(false); // Misma configuración que la tabla profesor
+                $table->unsignedInteger('idprofesor')->nullable(false);
     
                 // Agregar la clave foránea apuntando a la tabla "profesor"
                 $table->foreign('idprofesor')

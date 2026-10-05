@@ -12,7 +12,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('notas', function (Blueprint $table) {
-            $table->foreignId('idCursos')->constrained('cursos');
+            $table->unsignedInteger('idCursos');
+            $table->foreign('idCursos')->references('idCursos')->on('cursos');
         });
     }
     
