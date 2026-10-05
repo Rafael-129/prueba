@@ -12,7 +12,14 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
+    {   
+
+        $this->call([
+            UsuariosRol::class,
+            Cursos::class,
+            GradoSeccion::class,
+        ]);
+
          \App\Models\AnunciosProf::factory(5)->create();
 
         /*User::factory()->withPersonalTeam()->create([

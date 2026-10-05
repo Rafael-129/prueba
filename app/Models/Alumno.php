@@ -16,7 +16,7 @@ class Alumno extends Model
 
     // Definir las columnas que pueden ser asignadas masivamente
     protected $fillable = [
-        'grado',
+        'idGrado',
         'curso',
         'fecha',
         'nombre',
@@ -35,13 +35,6 @@ class Alumno extends Model
     {
         // Un alumno puede tener muchas notas
         return $this->hasMany(Notas::class, 'idAlumnos', 'idAlumno');
-    }
-
-    // Relación con Cursos
-    public function curso()
-    {
-        // Un alumno está relacionado con un curso por nombre
-        return $this->belongsTo(Cursos::class, 'idCursos', 'nombreCurso');
     }
 
     // Relación con EstadoReserva

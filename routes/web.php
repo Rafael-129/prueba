@@ -1,19 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\AnunciosController;
-use App\Http\Controllers\CitasController;
-use App\Http\Controllers\profesorCitasController;
-use App\Http\Controllers\HorariosController;
-use App\Http\Controllers\NotasController;
-use App\Http\Controllers\QuejasController;
-use App\Http\Controllers\ProfesorAnunciosController;
-use App\Http\Controllers\AnunciosProfController;
-use App\Http\Controllers\ProfesorNotasController;
-use App\Http\Controllers\ProfesorQuejasController;
-use App\Http\Controllers\ConsultaController;
+use App\Http\Auth\LoginController;
+use App\Http\Alumno\AnunciosController;
+use App\Http\Alumno\CitasController;
+use App\Http\Alumno\ConsultaController;
+use App\Http\Alumno\HorariosController;
+use App\Http\Alumno\NotasController;
+use App\Http\Alumno\QuejasController;
+use App\Http\Profesor\AnunciosProfController;
+use App\Http\Profesor\ProfesorAnunciosController;
+use App\Http\Profesor\ProfesorCitasController;
+use App\Http\Profesor\ProfesorNotasController;
+use App\Http\Profesor\ProfesorQuejasController;
+use App\Http\Public\IndexController;
 
 
 // Rutas de acceso público (Index)

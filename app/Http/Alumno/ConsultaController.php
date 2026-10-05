@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Alumno;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Usuario;
 use App\Models\Consulta;
 use App\Models\Alumno;
 use App\Models\EstadoConsulta;
-use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 

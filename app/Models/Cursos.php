@@ -18,7 +18,8 @@ class Cursos extends Model
     // Definir las columnas que pueden ser asignadas masivamente
     protected $fillable = [
         'nombreCurso',
-        'descripcion'
+        'descripcion',
+        'idGrado',
     ];
 
     // Relación con Notas
@@ -26,5 +27,10 @@ class Cursos extends Model
     {
         // Un curso puede tener muchas notas
         return $this->hasMany(Notas::class, 'idCursos');
+    }
+
+    public function grado()
+    {
+        return $this->belongsTo(Grado::class, 'idGrado', 'idGrado');
     }
 }

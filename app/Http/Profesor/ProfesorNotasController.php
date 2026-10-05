@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Profesor;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Grado;
 use App\Models\Usuario;

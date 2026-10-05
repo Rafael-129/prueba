@@ -12,6 +12,7 @@ class Grado extends Model
     protected $table = 'grado'; 
     protected $primaryKey = 'idGrado'; 
     public $timestamps = false; 
+    protected $fillable = ['idGrado', 'Grado', 'Seccion'];
 
     // Relación con los alumnos
     public function alumnos()

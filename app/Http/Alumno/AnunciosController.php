@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Alumno;
+
+use App\Http\Controllers\Controller;
+use App\Http\Profesor\AnunciosProfController;
 
 use App\Models\AnunciosProf;
 use Illuminate\Http\Request;
