@@ -9,16 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        // Agregar la columna idDia a la tabla reserva
-        DB::statement('ALTER TABLE reserva ADD COLUMN idDia INT NULL AFTER idEstadoReserva');
+        Schema::table('reserva', function (Blueprint $table) {
+            $table->unsignedInteger('idDia')->nullable();
+            $table->foreign('idDia')->references('idDia')->on('dia');
+        });
     }
 
-    public function down()
+    public function down(): void
     {
-        // Eliminar la columna idDia en caso de que se haga rollback
-        DB::statement('ALTER TABLE reserva DROP COLUMN idDia');
+        Schema::table('reserva', function (Blueprint $table) {
+            $table->dropForeign(['idDia']);
+            $table->dropColumn('idDia');
+        });
     }
 
 };

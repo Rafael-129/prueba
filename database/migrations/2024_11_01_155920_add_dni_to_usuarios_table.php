@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Usuario', function (Blueprint $table) {
-            if (!Schema::hasColumn('Usuario', 'DNI')) {
+        Schema::table('usuario', function (Blueprint $table) {
+            if (!Schema::hasColumn('usuario', 'DNI')) {
                 $table->string('DNI')->unique(); // Agregar la columna DNI solo si no existe
             }
         });
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('Usuario', function (Blueprint $table) {
+        Schema::table('usuario', function (Blueprint $table) {
             $table->dropColumn('DNI'); // Eliminar la columna si se revierte la migración
         });
     }
