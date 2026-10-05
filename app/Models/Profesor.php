@@ -12,7 +12,12 @@ class Profesor extends Model
     protected $table = 'profesor';  // Nombre de la tabla
 
     // Definir los campos que se pueden asignar masivamente
-    protected $fillable = ['nombre', 'apellido', 'DNI', 'Rol', 'password'];
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'idUsuario',
+        'idGrado',
+    ];
 
     // Relación uno a muchos con anuncios
     public function anuncios()
