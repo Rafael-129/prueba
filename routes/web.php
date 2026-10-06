@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Admin\AdminController;
 use App\Http\Auth\LoginController;
 use App\Http\Alumno\AnunciosController;
 use App\Http\Alumno\CitasController;
@@ -15,6 +16,14 @@ use App\Http\Profesor\ProfesorNotasController;
 use App\Http\Profesor\ProfesorQuejasController;
 use App\Http\Public\IndexController;
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/usuarios', [AdminController::class, 'usuarios'])->name('usuarios.index');
+    Route::get('/usuarios/crear', [AdminController::class, 'crearUsuario'])->name('usuarios.create');
+    Route::post('/usuarios', [AdminController::class, 'guardarUsuario'])->name('usuarios.store');
+    Route::get('/usuarios/{usuario}/grado', [AdminController::class, 'editarGrado'])->name('usuarios.grado.edit');
+    Route::put('/usuarios/{usuario}/grado', [AdminController::class, 'actualizarGrado'])->name('usuarios.grado.update');
+});
 
 // Rutas de acceso público (Index)
 Route::get('/', function () {

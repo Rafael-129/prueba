@@ -17,6 +17,8 @@ class Profesor extends Model
         'apellido',
         'idUsuario',
         'idGrado',
+        'departamento',
+        'especialidad',
     ];
 
     // Relación uno a muchos con anuncios

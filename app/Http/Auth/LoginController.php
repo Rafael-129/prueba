@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\rol;
 use App\Models\Profesor; 
 use App\Models\Alumno; 
@@ -38,7 +39,7 @@ class LoginController extends Controller
         // Crear el usuario 
         $usuario = new Usuario();
         $usuario->DNI = $request->DNI;
-        $usuario->password = $request->password; 
+        $usuario->password = Hash::make($request->password);
         $usuario->idRol = $request->rol;
         $usuario->save();
     
@@ -82,12 +83,22 @@ class LoginController extends Controller
         }
 
         // Validar la contraseña 
-        if ($usuario->password === $request->password) {
+        $passwordValida = Hash::check($request->password, $usuario->password)
+            || $usuario->password === $request->password;
+
+        if ($passwordValida) {
+            if ($usuario->password === $request->password) {
+                $usuario->password = Hash::make($request->password);
+                $usuario->save();
+            }
+
             // Si la contraseña es correcta, iniciar sesión
             Auth::login($usuario);
 
             // Redirigir según el rol
-            if ($usuario->idRol == 1) {
+            if ($usuario->idRol == 3) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($usuario->idRol == 1) {
                 return redirect()->route('anuncios_profs.index');
             } elseif ($usuario->idRol == 2) {
                 return redirect()->route('Alumno.anuncios');

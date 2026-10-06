@@ -18,7 +18,7 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'idUsuario'; // Si el ID de la tabla es 'idUsuario'
 
     protected $fillable = [
-        'name', 'email', 'password', 'idRol',
+        'DNI', 'password', 'idRol',
     ];
 
     // Relación con el modelo 'Rol'
@@ -30,6 +30,11 @@ class Usuario extends Authenticatable
     public function profesor()
     {
         return $this->hasOne(Profesor::class, 'idUsuario', 'idUsuario');
+    }
+
+    public function alumno()
+    {
+        return $this->hasOne(Alumno::class, 'idUsuario', 'idUsuario');
     }
 }
 
